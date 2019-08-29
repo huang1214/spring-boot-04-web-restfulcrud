@@ -3,6 +3,7 @@ package com.aca.springboot.entities;
 
 public class application {
 
+    //application实体类属性
     private String app_id;
     private String competition_name;
     private String work_name;
