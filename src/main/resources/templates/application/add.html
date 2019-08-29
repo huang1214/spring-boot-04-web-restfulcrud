@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>申请奖金</title>
+		<!-- Bootstrap core CSS -->
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+
+		<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+		<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+		<script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+		<script>
+            $(document).ready(function(){
+                $("#commentForm").validate();
+            });
+			function validateForm() {
+				var x = document.forms["myForm"]["competition_name"].value;
+				var y = document.forms["myForm"]["work_name"].value;
+				var z = document.forms["myForm"]["unit"].value;
+				var a = document.forms["myForm"]["result_type"].value;
+				var b = document.forms["myForm"]["prize_type"].value;
+				var c = document.forms["myForm"]["level_type"].value;
+				var d = document.forms["myForm"]["date_year"].value;
+				var e = document.forms["myForm"]["card_num"].value;
+				if (z == null || z == "") {
+					alert("需要输入获奖的第一单位！");
+					return false;
+				}
+				if (z != "南昌大学软件学院") {
+					alert("获奖的第一单位必须为南昌大学软件学院！");
+					return false;
+				}
+				if (x != null && x != "" && y != null && y != ""&&
+					z != null && z != "" && a != null && a != ""&&
+					b != null && b != "" && c != null && c != ""&&
+					d != null && d != "" && e != null && e != "")
+				{
+					alert("申请成功");
+				} else {
+					return false;
+				}
+			}
+		</script>
+		<style>
+			.error{
+				color:#a61b29;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--引入抽取的topbar-->
+		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+		<div th:replace="commons/bar::topbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!--引入侧边栏-->
+				<div th:replace="commons/bar::#sidebar(activeUri='/application/add')"></div>
+				<!--<main><h1>这是填写奖金申请表的页面</h1></main>-->
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<form id="commentForm" name="myForm" style="width:65%" class="container container-small" th:action="@{/add}" onsubmit="return validateForm() " method="get">
+						<!--placeholder="这里填默认值"-->
+						<div class="form-group">
+							<label>比赛名称</label>
+							<input name="competition_name" type="text" list="competition_name_list" class="form-control" required>
+							<datalist id="competition_name_list"></datalist>
+						</div>
+						<div class="form-group">
+							<label>作品名称</label>
+							<input name="work_name" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>第一单位</label>
+							<input name="unit" type="text" class="form-control" placeholder="xxxx大学xxxx学院" required>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>负责人id</label>
+									<input name="leader_id" type="text" th:value="${session.loginUser}" th:placeholder="${session.loginUser}" class="form-control" readonly>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>指导老师id</label>
+									<input name="teacher_id" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="control-label">成果类型</label>
+									<select class="form-control" name="result_type">
+										<option value="1">考试</option>
+										<option value="0">作品</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="control-label">所获奖项</label>
+									<select class="form-control" name="prize_type">
+										<option value="1">特等奖</option>
+										<option value="2">一等奖</option>
+										<option value="3">二等奖</option>
+										<option value="4">三等奖</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group">
+									<label class="control-label">级别</label>
+									<select class="form-control" name="level_type">
+										<option value="1">国家级</option>
+										<option value="0">省级</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>获奖时间</label>
+							<input name="date_year" type="text" class="form-control" placeholder="yyyy-mm" required>
+						</div>
+						<div class="form-group">
+							<label>负责人银行卡号</label>
+							<input name="card_num" maxlength="20" type="text" class="form-control" required>
+						</div>
+						<button type="submit" class="btn btn-primary" >添加</button>
+					</form>
+				</main>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var info_url = "http://localhost:8083/con_name";
+	$.get(info_url,function(result){
+		//result是本次请求收到的响应数据
+		console.log(result);   //在后天显示数据，页面中不会显示
+		for(var i in result){
+			var list;
+			list ="<option value='"+ result[i].competition_name+"'>"+ "</option>";
+			console.log(result[i].competition_name);
+			$("#competition_name_list").append(list);
+		}
+	});
+</script>

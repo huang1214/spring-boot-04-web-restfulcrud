@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>登录后管理员主页</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+    <script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+    <script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <script>
+        $(document).ready(function(){
+            $("#flip").click(function(){
+                $("#panel").slideToggle("slow");
+            });
+        });
+    </script>
+    <style type="text/css">
+        #panel
+        {
+            display:none;
+        }
+    </style>
+
+</head>
+
+<body>
+<!--引入topbar-->
+<div th:replace="commons/admin_bar::topbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <!--引入sidebar-->
+        <div th:replace="commons/admin_bar::#sidebar(activeUri='/admin/competition')"></div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h4>学科和科技竞赛目录表</h4>
+            <div class="table-responsive" style="margin-left:10px;margin-top:10px">
+                <table id="com_list" class="table table-striped table-sm" align="center">
+                    <tbody>
+                    <tr>
+                        <th>学科和科技竞赛编号</th>
+                        <th>学科和科技竞赛名称</th>
+                        <th>主办单位</th>
+                        <th>学科和科技竞赛分类</th>
+                        <th>参考文件</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <button type='button' class="btn btn-primary" data-toggle='modal' data-target='#myModal2' id='insert_com' name='insert_com'>添加</button>
+            </div>
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">添加新的竞赛信息</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <form name="zsr" th:action="@{/insert_com}" onsubmit="return validateForm()" method="get">
+                            <div class="modal-body">
+                                <span style="color: crimson">*</span> <label class="control-label" for="ctname">学科和科技竞赛名称：</label>
+                                <input type="text" class="form-control" name="ctname" id="ctname" required>
+                                <span style="color: crimson">*</span> <label class="control-label" for="host_unit">主办单位：</label>
+                                <input type="text" class="form-control" name="host_unit" id="host_unit" required>
+                                <span style="color: crimson">*</span> <label class="custom-control-label">学科和科技竞赛分类：</label>
+                                <select class="form-control" name="com_type" required>
+                                    <option value="1A">1A</option>
+                                    <option value="1B">1B</option>
+                                    <option value="1C">1C</option>
+                                    <option value="0">0</option>
+                                </select>
+                                <label class="custom-control-label">参考文件：</label>
+                                <select class="form-control" name="reference_paper">
+                                    <option value=""></option>
+                                    <option value="参考文件1">参考文件1</option>
+                                    <option value="参考文件2">参考文件2</option>
+                                    <option value="参考文件3">参考文件3</option>
+                                </select>
+                            </div>
+                            <hr><p class="form-control" style=";font-size:12px;">带<span style="color: crimson">*</span>是必填项目</p>
+                            <div class="modal-footer">
+                                <button type="button" id="btn1" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="submit" id="btn2" class="btn btn-primary">添加</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var com_url = "http://localhost:8083/getAllCom"
+    $.get(com_url,function (comAll) {
+        console.log(comAll);
+        for(var i in comAll){
+            var tr;
+            tr = "<td>"+comAll[i].ctid+"</td>";
+            tr +="<td>"+comAll[i].ctname+"</td>";
+            if(comAll[i].host_unit == null){
+                tr +="<td></td>";
+            }else{
+                tr +="<td>"+comAll[i].host_unit+"</td>";
+            }
+            tr += "<td>"+comAll[i].com_type+"</td>";
+            if(comAll[i].reference_paper == null){
+                tr +="<td></td>";
+            }else{
+                tr += "<td>"+comAll[i].reference_paper+"</td>";
+            }
+            $("#com_list").append("<tr>"+tr+"</tr>");
+        }
+    })
+
+    $("#insert_com").click(function () {
+        $("#myModal2").Modal('show');
+    })
+    function validateForm() {
+        var x = document.forms["zsr"]["ctname"].value;
+        var y = document.forms["zsr"]["host_unit"].value;
+        var z = document.forms["zsr"]["com_type"].value;
+
+        if (x != null && x != "" && y != null && y != ""&&
+            z != null && z != "")
+        {
+            alert("竞赛信息添加成功！");
+        } else {
+            return false;
+        }
+    }
+
+</script>

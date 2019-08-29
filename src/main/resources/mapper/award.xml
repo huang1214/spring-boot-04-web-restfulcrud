@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aca.springboot.mapper.AwardMapper">
+    <resultMap id="awardresult" type="com.aca.springboot.entities.award">
+        <result property="atid" column="atid"/>
+        <result property="com_type" column="com_type"/>
+        <result property="rtname" column="rtname"/>
+        <result property="ltname" column="ltname"/>
+        <result property="ptname" column="ptname"/>
+        <result property="teacher_price" column="teacher_price"/>
+        <result property="student_price" column="student_price"/>
+    </resultMap>
+    <select id="getAllAward" resultMap="awardresult">
+        select atid, com_type,r.rtname,l.ltname,p.ptname,teacher_price,student_price
+        from award_type a,result_type r,level_type l,prize_type p
+        where a.result_type = r.rtid
+          and a.level_type = l.ltid
+          and a.prize_type = p.ptid
+    </select>
+
+    <update id="change_price">
+        update award_type set teacher_price = #{teacher_price} , student_price = #{student_price} where atid = #{atid}
+    </update>
+</mapper>

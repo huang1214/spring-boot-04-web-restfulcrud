@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aca.springboot.mapper.CompetitionMapper">
+    <resultMap id="com_class" type="com.aca.springboot.entities.competition">
+        <id property="ctid" column="ctid"/>
+        <result property="ctname" column="ctname"/>
+        <result property="host_unit" column="host_unit"/>
+        <result property="com_type" column="com_type"/>
+        <result property="reference_paper" column="reference_paper"/>
+    </resultMap>
+
+    <select id="com_All" resultMap="com_class">
+        select * from com_table
+    </select>
+
+    <insert id="insert_com">
+        insert into com_table(ctid,ctname,host_unit,com_type,reference_paper) values(com_table_ctid_Seq.Nextval,#{ctname},#{host_unit},#{com_type},#{reference_paper})
+    </insert>
+</mapper>

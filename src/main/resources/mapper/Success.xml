@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aca.springboot.mapper.SuccessMapper">
+    <insert id="add_succ" parameterType="com.aca.springboot.entities.Success" >
+        insert into application_succ(app_id,leader_id,teacher_id,stu_price,tea_price,date_year,competition_id,is_check)
+        values (application_succ_id_Seq.Nextval,#{leader_id},#{teacher_id},#{stu_price},#{tea_price},to_date(#{date_year},'yyyy-mm'),#{competition_id},#{is_check})
+    </insert>
+
+    <select id="get_ctid" resultType="map">
+      select ctid from com_table where ctname = #{ctname}
+    </select>
+
+    <select id="get_price" resultType="map">
+        select teacher_price,student_price from award_type where atid = #{atid}
+    </select>
+    
+    <update id="check_work">
+        update application_succ set is_check = #{is_check} where app_id= #{app_id}
+    </update>
+</mapper>
+

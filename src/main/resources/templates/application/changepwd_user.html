@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>修改密码</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <!--
+        <script type="text/javascript" src="http://127.0.0.1/CarAppStore/js/jquery/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="http://127.0.0.1/CarAppStore/js/jquery/jquery-form.js"></script>
+    -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                var x=document.forms["changepwd_form"]["new_pwd1"].value;
+                var y=document.forms["changepwd_form"]["new_pwd2"].value;
+                if (x==null || x==""){
+                    alert("新密码必须填写！");
+                    return false;
+                }
+                if (y==null || y==""){
+                    alert("请再次确认新密码！");
+                    return false;
+                }
+                if (x!=y){
+                    alert("两次密码不一致！");
+                    return false;
+                }
+                if(x==y){
+                    alert("密码修改成功");
+
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+<!--引入抽取的topbar-->
+<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+<div th:replace="commons/bar::topbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <!--引入侧边栏-->
+        <div th:replace="commons/bar::#sidebar"></div>
+        <!--<main><h1>这是填写奖金申请表的页面</h1></main>-->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <form id="changepwd_form" class="container container-small"  method="get" th:action="@{/change_user}" style="width:40%;margin-left:0">
+                <div class="form-group">
+                    <label>输入新密码：</label><input type="password" name="new_pwd1" class="form-control" >
+                </div>
+                <div class="form-group">
+                    <label>再次确认新密码：</label><input type="password" name="new_pwd2" class="form-control" >
+                </div>
+                <button type="submit" class="btn btn-primary">确定</button>
+            </form>
+        </main>
+    </div>
+</div>
+</body>
+
+</html>

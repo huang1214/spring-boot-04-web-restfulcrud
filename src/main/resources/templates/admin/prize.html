@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>登录后管理员主页</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+    <script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+    <script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <script>
+        $(document).ready(function(){
+            $("#changeprice_id").click(function(){
+                 alert("奖励金额修改成功");
+            });
+            $("#flip").click(function(){
+                $("#panel").slideToggle("slow");
+            });
+        });
+    </script>
+    <style type="text/css">
+        #panel
+        {
+            display:none;
+        }
+    </style>
+</head>
+
+<body>
+<!--引入topbar-->
+<div th:replace="commons/admin_bar::topbar"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <!--引入sidebar-->
+            <div th:replace="commons/admin_bar::#sidebar(activeUri='/admin/prize')"></div>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <h4>更改奖金</h4>
+                <div class="table-responsive" style="margin-left:10px;margin-top:10px">
+                    <table id="awardtype" class="table table-striped table-sm" align="center">
+                        <tbody>
+                        <tr>
+                            <th>序号</th>
+                            <th>学科和科技竞赛分类</th>
+                            <th>成果类型</th>
+                            <th>级别类型</th>
+                            <th>所获奖项类型</th>
+                            <th>老师奖励金额</th>
+                            <th>学生奖励金额</th>
+                            <th>编辑</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">修改奖励金额</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+<!--                            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                            <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+                            <form name="changeprize_form" th:action="@{/change_price}" method="get" onsubmit="return validateForm()">
+                                <div class="modal-body">
+                                    <label class="control-label" for="teacher_price">重新设置老师金额：</label>
+                                    <input type="text" class="form-control" name="teacher_price" id="teacher_price" required>
+                                    <label class="control-label" for="student_price">重新设置学生金额：</label>
+                                    <input type="text" class="form-control" name="student_price" id="student_price" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn btn-primary" name="changeprice_id" id="changeprice_id">修改</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+    var award_url = "http://localhost:8083/getAllAward";
+    $.get(award_url,function (award) {
+        console.log(award);
+        for(var i in award){
+            var ctname = "";
+            if(award[i].com_type == '0'){
+                ctname ="一般竞赛项目";
+            }else if(award[i].com_type == '1'){
+                ctname ="重点竞赛项目";
+            }
+            var tr;
+            tr = "<td>"+award[i].atid+"</td>";
+            tr += "<td>"+ctname+"</td>";
+            tr +="<td>"+award[i].ltname+"</td>";
+            tr +="<td>"+award[i].ptname+"</td>";
+            tr +="<td>"+award[i].rtname+"</td>";
+            tr +="<td>"+award[i].teacher_price+"</td>";
+            tr +="<td>"+award[i].student_price+"</td>";
+            tr +="<td><button class='btn btn-secondary' type='button' data-toggle='modal' data-target='#myModal' id='chang_price_id' name='chang_price_id'>编辑</button></td>";
+            $("#awardtype").append("<tr>"+tr+"</tr>");
+        }
+    })
+    $('tbody').on('click',"#chang_price_id",function (){
+        var chang_id = $(this).parent().siblings().first().html();
+        console.log(chang_id);
+        $("#changeprice_id").val(chang_id);
+        $("#myModal").Modal('show');
+    })
+    function validateForm() {
+        var x = document.forms["changeprize_form"]["teacher_price"].value;
+        var y = document.forms["changeprize_form"]["student_price"].value;
+
+        if (x != null && x != "" && y != null && y != "")
+        {
+            alert("奖励金额修改成功！");
+        } else {
+            return false;
+        }
+    }
+
+</script>

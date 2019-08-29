@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aca.springboot.mapper.UserMapper">
+
+
+    <!-- 普通用户登陆调用存储过程 -->
+    <parameterMap id="loginresult" type="java.util.Map">
+        <parameter property="username" jdbcType="CHAR" mode="IN"/>
+        <parameter property="password" jdbcType="VARCHAR" mode="IN"/>
+        <parameter property="logintype" jdbcType="INTEGER" mode="OUT"/>
+    </parameterMap>
+    <select id="login" parameterMap="loginresult" statementType="CALLABLE">
+        {call pro_login(?,?,?)}    <!-- 三个“？”对应上面<parameter> ， CALLABLE存储过程 -->
+    </select>
+
+    <!-- 管理员登陆调用存储过程 -->
+    <parameterMap id="a_loginresult" type="java.util.Map">
+        <parameter property="username" jdbcType="CHAR" mode="IN"/>
+        <parameter property="password" jdbcType="VARCHAR" mode="IN"/>
+        <parameter property="logintype" jdbcType="INTEGER" mode="OUT"/>
+    </parameterMap>
+    <select id="a_login" parameterMap="a_loginresult" statementType="CALLABLE">
+        {call pro_admin_login(?,?,?)}    <!-- 三个“？”对应上面<parameter> ， CALLABLE存储过程 -->
+    </select>
+
+
+    <resultMap id="userresult" type="com.aca.springboot.entities.User">
+        <result property="userid" column="userid"/>
+        <result property="password" column="userpwd"/>
+        <result property="username" column="username"/>
+         <result property="tname" column="usertype"/>
+    </resultMap>
+    <select id = "listUser" resultMap="userresult">
+        select * from uuser
+    </select>
+
+    <update id="changepwd">
+        update uuser set userpwd = #{userpwd} where userid = #{userid}
+    </update>
+
+    <delete id="delete_user">
+        delete uuser where userid = #{userid}
+    </delete>
+
+    <insert id="insert_user">
+        insert into uuser(userid,userpwd,username,usertype) values(#{userid},#{userpwd},#{username},#{usertype})
+    </insert>
+
+    <resultMap id="adminresult" type="com.aca.springboot.entities.User">
+        <result property="userid" column="adm_id" />
+        <result property="password" column="adm_pwd" />
+        <result property="username" column="adm_name"/>
+    </resultMap>
+
+    <select id="adminList" resultMap="adminresult">
+        select * from administrator
+    </select>
+
+    <update id="changeAdminPwd">
+        update administrator set adm_pwd = #{adm_pwd} where adm_id = #{adm_id}
+    </update>
+
+    <delete id="delete_admin">
+        delete administrator where adm_id = #{adm_id}
+    </delete>
+
+    <insert id="insert_admin">
+        insert into administrator(adm_id,adm_pwd,adm_name) values(#{adm_id},#{adm_pwd},#{adm_name})
+    </insert>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aca.springboot.mapper.ApplicationMapper">
+    <insert id="add" parameterType="com.aca.springboot.entities.application" >
+            insert into Application(app_id,competition_name,work_name,leader_id,unit,teacher_id,card_num,date_year,award_id)
+            values (application_id_Seq.Nextval,#{competition_name},#{work_name},#{leader_id},#{unit},#{teacher_id},#{card_num},to_date(#{date_year},'yyyy-mm'),#{award_id})
+        </insert>
+
+<!--    <delete id="delete" parameterType="Application" >
+            delete from Application where app_id= #{app_id}
+        </delete>-->
+
+<!--    <select id="get" parameterType="string" resultType="Application">
+            select * from Application where app_id= #{app_id}
+        </select>-->
+
+<!--    <update id="update" parameterType="Hero" >
+            update hero set name=#{name}, hp = #{hp} where id=#{id}
+        </update>-->
+  <!--  <select id="list" resultType="Application">
+            select * from  Application
+        </select>
+-->
+    <!-- 查询全部比赛名称 -->
+    <resultMap id="com_name_all" type="com.aca.springboot.entities.application">
+        <result property="competition_name" column="ctname"/>
+    </resultMap>
+    <select id="com_name" resultMap="com_name_all">
+    select ctname from com_table
+    </select>
+
+    <!-- 调用返还获奖类型的函数 -->
+    <parameterMap id="awardtype" type="java.util.Map">
+    </parameterMap>
+    <select id="getawardtype" parameterMap="awardtype" statementType="CALLABLE">
+        {#{awardtype,mode=OUT,jdbcType=CHAR} = call application_award_type(
+                #{u_competition_name,mode=IN,jdbcType=VARCHAR},
+                #{u_result_type,mode=IN,jdbcType=CHAR},
+                #{u_level_type,mode=IN,jdbcType=CHAR},
+                #{u_prize_type,mode=IN,jdbcType=CHAR})}
+    </select>
+
+    <resultMap id="workresult" type="com.aca.springboot.entities.work">
+        <id column="app_id" property="app_id"/>
+        <result column="competition_name" property="competition_name"/>
+        <result column="work_name" property="work_name"/>
+        <result column="leader_id" property="leader_id"/>
+        <result column="teacher_id" property="teacher_id"/>
+        <result column="date_year" property="date_year"/>
+        <result column="stu_price" property="student_price"/>
+        <result column="tea_price" property="teacher_price"/>
+        <result column="is_check" property="is_check"/>
+    </resultMap>
+    <select id="workresult" resultMap="workresult">
+        select a.app_id,a.competition_name,a.work_name,a.leader_id,a.teacher_id,a.date_year,s.stu_price,s.tea_price,s.is_check
+        from application a,application_succ s
+        where a.app_id = s.app_id and
+            s.leader_id = #{leader_id}
+        order by app_id
+    </select>
+
+    <select id="work_paaAll" resultMap="workresult">
+        select a.app_id,a.competition_name,a.work_name,a.leader_id,a.teacher_id,a.date_year,s.stu_price,s.tea_price,s.is_check
+        from application a,application_succ s
+        where a.app_id = s.app_id
+        order by app_id
+    </select>
+
+</mapper>
