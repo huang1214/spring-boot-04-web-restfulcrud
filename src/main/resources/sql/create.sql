@@ -15,14 +15,32 @@ comment on column dept.dtel is '部门主管电话';
 create table class(
     cno varchar2(4) primary key ,
     cname varchar2(20) not null ,
-    dno char(2) not null ,
+    dno varchar2(2) not null ,
     cgrade char(2) not null ,
     cadmin varchar2(10) not null ,
     cadmintel varchar2(15) ,
     cmaster varchar2(10) not null ,
     cmastertel varchar2(15),
-    constraint FK_REFERENCE_DEPT1 foreign key (dno) references dept(dno)
+    constraint class_dept_dno_fk
+        foreign key (dno) references dept(dno)
 );
+
+create table uuser(
+                      userid varchar(10) not null,
+                      userpwd varchar2(50) not null,
+                      username varchar2(20) not null,
+                      usertype integer not null,
+                      constraint PK_UUSER primary key (userid)
+);
+
+insert into uuser values('8002117247','190324','aaa',0);
+insert into uuser values('8002117248','425361','bbb',0);
+insert into uuser values('8002117249','213245','ccc',0);
+insert into uuser values('11001','123456','ddd',1);
+insert into uuser values('11002','234567','eee',1);
+
+select * from uuser;
+
 comment on table class is '班级表';
 comment on column class.cno is '班级编号';
 comment on column class.cname is '班级名称';
@@ -92,7 +110,7 @@ comment on  column teacher.card_num is '银行卡号';
 
 -- 创建学生表
 CREATE TABLE student(
-    sno VARCHAR2(10) not NULL,
+    sno VARCHAR2(10) not NULL primary key ,
     sname VARCHAR2(10) not NULL,
     ssex VARCHAR2(2) not NULL,
     sbirthday date not null ,
@@ -232,6 +250,7 @@ create table bill(
     predictfee number not null ,
     state char(1) default 0 not null ,
     attachfile blob,
+    constraint PK_BILL_ID primary key (bid),
     constraint bill_com_table_ctid_fk foreign key (ctid) references com_table(ctid),
     constraint bill_student_sno_fk foreign key (groupleader) references student(sno),
     constraint bill_teacher_teacherid1_fk foreign key (teacher1Id) references teacher(tno),
