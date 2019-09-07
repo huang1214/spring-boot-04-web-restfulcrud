@@ -28,7 +28,7 @@
         <result property="competition_name" column="ctname"/>
     </resultMap>
     <select id="com_name" resultMap="com_name_all">
-    select ctname from com_table
+        select ctname from com_table
     </select>
 
     <!-- 调用返还获奖类型的函数 -->

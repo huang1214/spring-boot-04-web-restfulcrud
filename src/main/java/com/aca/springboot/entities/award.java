@@ -1,6 +1,7 @@
 package com.aca.springboot.entities;
 
 public class award {
+    //award实体属性
     private String atid;
     private String com_type;
     private String rtname;
