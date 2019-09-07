@@ -29,24 +29,26 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/").setViewName("login");
-                registry.addViewController("/index.html").setViewName("login");
+                /* 这是之前项目的路径*/
                 registry.addViewController("/main.html").setViewName("dashboard");
-                registry.addViewController("/try").setViewName("try");
+                registry.addViewController("/index.html").setViewName("login");
+                registry.addViewController("/admin").setViewName("admin");
+                registry.addViewController("/pie_user").setViewName("pie_user");
                 registry.addViewController("/application/add").setViewName("/application/add");
                 registry.addViewController("/application/status").setViewName("/application/status");
                 registry.addViewController("/application/list").setViewName("/application/list");
                 registry.addViewController("/application/notice").setViewName("/application/notice");
                 registry.addViewController("/application/changepwd_user").setViewName("/application/changepwd_user");
-
-                registry.addViewController("/admin_index.html").setViewName("admin_index");
                 registry.addViewController("/admin/audit").setViewName("/admin/audit");
                 registry.addViewController("/admin/competition").setViewName("/admin/competition");
                 registry.addViewController("/admin/prize").setViewName("/admin/prize");
                 registry.addViewController("/admin/manage_user").setViewName("/admin/manage_user");
                 registry.addViewController("/admin/manage_admin").setViewName("/admin/manage_admin");
                 registry.addViewController("/admin/changepwd_admin").setViewName("/admin/changepwd_admin");
-
+                /* 这是现在项目的路径*/
+                registry.addViewController("/").setViewName("login");
+                registry.addViewController("/user_index.html").setViewName("user_index");
+                registry.addViewController("/admin_index.html").setViewName("admin_index");
             }
 
             //注册拦截器

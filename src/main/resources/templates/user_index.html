@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>管理员页面</title>
+    <title>普通用户界面</title>
     <link rel="stylesheet" href="asserts/css/layui.css">
     <link href="https://cdn.bootcss.com/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
     <style>
@@ -11,7 +11,7 @@
             text-align: center;
         }
         .nav-item-side i{
-            margin-right: 15px;
+          margin-right: 15px;
         }
         .nav-item-top i{
             margin-left: 10px;
@@ -21,30 +21,30 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">某用户，你好！</div>
+        <div class="layui-logo">[[${session.loginUser}]]，你好！</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
+<!--        <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">仪表盘</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">我的消息</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>
+        </ul>-->
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    <img src="asserts/img/NCU.png" class="layui-nav-img">
+                    赵思蓉
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
+            <li class="layui-nav-item">
+            <a class="nav-item-top" href="javascript:;">我的消息</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">消息管理</a></dd>
+                <dd><a href="">公告管理</a></dd>
+                <dd><a href="">邮件管理</a></dd>
+            </dl>
+        </li>
             <li class="layui-nav-item"><a class="nav-item-top" href="/">退出<i class="fa fa-share" aria-hidden="true"></i></a></li>
         </ul>
     </div>
@@ -53,37 +53,11 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="leftnav">
-
                 <li class="layui-nav-item layui-this">
-                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-home"></i>仪表盘</a>
-
+                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-home fa-fw"></i>仪表盘</a>
                 </li>
-
-                <li class="layui-nav-item  layui-nav-itemed">
-                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-calculator" aria-hidden="true"></i>预算备案</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">申请审核</a></dd>
-                        <dd><a href="javascript:;">历史记录</a></dd>
-                    </dl>
-                </li>
-
-                <li class="layui-nav-item">
-                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-cog"></i>成果管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">申请审核</a></dd>
-                        <dd><a href="javascript:;">历史记录</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-trophy" aria-hidden="true"></i>竞赛管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">添加竞赛</a></dd>
-                        <dd><a href="javascript:;">修改金额</a></dd>
-                    </dl>
-                </li>
-
-                <li class="layui-nav-item">
-                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-id-card fa-fw" aria-hidden="true"></i>预算备案</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="html/index.html" data-id="1">备案须知</a></dd>
                         <dd><a href="javascript:;" data-url="html/index.html" data-id="2">备案申报</a></dd>
@@ -91,15 +65,17 @@
                         <dd><a href="javascript:;">历史信息</a></dd>
                     </dl>
                 </li>
-
                 <li class="layui-nav-item">
-                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-comment" aria-hidden="true"></i>消息管理</a>
+                    <a class="nav-item-side" href="javascript:;"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i>成果管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">发送消息</a></dd>
-                        <dd><a href="javascript:;">确认金额</a></dd>
+                        <dd><a href="javascript:;">申请须知</a></dd>
+                        <dd><a href="javascript:;">申请信息</a></dd>
+                        <dd><a href="javascript:;">申请状态</a></dd>
+                        <dd><a href="">历史信息</a></dd>
                     </dl>
                 </li>
-
+                <li class="layui-nav-item"><a class="nav-item-side" href=""><i class="fa fa-flask fa-fw" aria-hidden="true"></i>教育科研</a></li>
+                <li class="layui-nav-item"><a class="nav-item-side" href=""><i class="fa fa-search fa-fw" aria-hidden="true"></i></i>竞赛查询</a></li>
             </ul>
         </div>
     </div>
@@ -118,7 +94,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © layui.com - 底部固定区域
+        © 学科竞赛管理系统
     </div>
 </div>
 <script src="asserts/js/layui/layui.js"></script>

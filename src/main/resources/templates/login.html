@@ -2,7 +2,7 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
-	<title>学科竞赛激励系统登陆页面</title>
+	<title>学科竞赛管理系统登陆页面</title>
 	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -27,7 +27,7 @@
 				<div class="cont-1">
 					<form action="dashboard.html" th:action="@{/user/login}" method="post">
 						<label class="sr-only" th:text="#{login.username}">Username</label>
-						<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">
+						<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" >
 						<label class="sr-only" th:text="#{login.password}">Password</label>
 						<input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">
 						<div class="checkbox mb-3">
