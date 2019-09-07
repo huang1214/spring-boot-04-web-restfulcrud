@@ -25,22 +25,6 @@ create table class(
         foreign key (dno) references dept(dno)
 );
 
-create table uuser(
-                      userid varchar(10) not null,
-                      userpwd varchar2(50) not null,
-                      username varchar2(20) not null,
-                      usertype integer not null,
-                      constraint PK_UUSER primary key (userid)
-);
-
-insert into uuser values('8002117247','190324','aaa',0);
-insert into uuser values('8002117248','425361','bbb',0);
-insert into uuser values('8002117249','213245','ccc',0);
-insert into uuser values('11001','123456','ddd',1);
-insert into uuser values('11002','234567','eee',1);
-
-select * from uuser;
-
 comment on table class is '班级表';
 comment on column class.cno is '班级编号';
 comment on column class.cname is '班级名称';
