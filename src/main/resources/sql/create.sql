@@ -38,27 +38,27 @@ comment on column class.cmastertel is '班导电话';
 
 create table teacher
 (
-	tno varchar2(10)
-		constraint teacher_pk
-			primary key,
-	tname varchar2(10) not null,
-	tsex varchar2(2) not null,
-	tbirthday date,
-	dno varchar2(2)
-		constraint teacher_dept_dno_fk
-			references dept (dno),
-	ttel varchar2(15),
-	ttitle varchar2(10),
-	tpwd varchar2(50),
-	tstate char(1) default 0 not null,
-	card_num varchar2(20)
+  tno varchar2(10)
+    constraint teacher_pk
+      primary key,
+  tname varchar2(10) not null,
+  tsex varchar2(5) not null,
+  tbirthday date,
+  dno varchar2(2)
+    constraint teacher_dept_dno_fk
+      references dept (dno),
+  ttel varchar2(15),
+  ttitle varchar2(10),
+  tpwd varchar2(50),
+  tstate char(1) default 0 not null,
+  card_num varchar2(20)
 )
 /
 
 comment on table teacher is '教师表'
 /
 
-comment on column teacher.tno is '教室编号'
+comment on column teacher.tno is '教师编号'
 /
 
 comment on column teacher.tname is '教师名称'
@@ -96,7 +96,7 @@ comment on  column teacher.card_num is '银行卡号';
 CREATE TABLE student(
     sno VARCHAR2(10) not NULL primary key ,
     sname VARCHAR2(10) not NULL,
-    ssex VARCHAR2(2) not NULL,
+    ssex VARCHAR2(5) not NULL,
     sbirthday date not null ,
     sdomitory varchar2(20) not null ,
     cno varchar2(4) not null ,
@@ -124,15 +124,18 @@ comment on column student.card_num is '银行卡号';
 create table com_table(
       ctid char(5),
       ctname varchar2(256)      not null,
-      host_unit varchar2(256)   not null,
+      host_unit varchar2(256),
       com_type char(3)          not null,
+      result_type char(1)       not null,
       reference_paper varchar2(50),
-      constraint PK_COM_TABLE primary key (ctid)
+      constraint PK_COM_TABLE primary key (ctid),
+      constraint FK_REFERENCE_RESULT_TYPE foreign key (result_type) references result_type (rtid)
 );
 comment on table com_table is '学科和科技竞赛目录表';
 comment on column com_table.ctid is '学科和科技竞赛编号';
 comment on column com_table.ctname is '学科和科技竞赛名称';
 comment on column com_table.host_unit is '主办单位';
+comment on column com_table.result_type is '成果类型';
 comment on column com_table.com_type is '学科和科技竞赛分类(0:一般竞赛项目,1:重点竞赛项目)';
 comment on column com_table.reference_paper is '参考文件';
 
@@ -156,6 +159,51 @@ comment on table result_type is '成果类型表';
 comment on column result_type.rtid is '成果类型编号';
 comment on column result_type.rtname is '成果类型名称(考试,作品)';
 
+--创建所获奖项类型表
+create table prize_type(
+ptid char(1) not null,
+ptname varchar2(50) not null,
+constraint PK_PRIZE_TYPE primary key (ptid)
+);
+comment on table prize_type is '所获奖项类型表';
+comment on column prize_type.ptid is '所获奖项类型编号';
+comment on column prize_type.ptname is '所获奖项类型名称(特等奖,一等奖，二等奖，三等奖,优秀奖)';
+
+--创建获奖类型表
+create table award_type(
+atid char(2)              not null,
+com_type char(1)          not null,
+result_type char(1)       not null,
+level_type  char(1)       not null,
+prize_type char(1)        not null,
+teacher_price number      not null,
+student_price number      not null,
+constraint PK_AWARD_TYPE primary key (atid),
+constraint FK_REFERENCE_RESULT foreign key (result_type) references result_type (rtid),
+constraint FK_REFERENCE_LEVEL foreign key (level_type) references level_type (ltid),
+constraint FK_REFERENCE_PRIZE foreign key (prize_type) references prize_type (ptid)
+);
+comment on table award_type is '获奖类型表(该表共有2×2×2×4个元组，32个获奖类型)';
+comment on column award_type.atid is '获奖类型编号';
+comment on column award_type.com_type is '竞赛分类编号';
+comment on column award_type.result_type is '成果类型编号';
+comment on column award_type.level_type is '级别编号';
+comment on column award_type.prize_type is '所获奖项类别编号';
+comment on column award_type.teacher_price is '老师奖励金额';
+comment on column award_type.student_price is '学生奖励金额';
+
+
+
+--创建管理员表
+CREATE TABLE administrator(
+adm_id varchar2(20) primary key,
+adm_pwd varchar2(50) not null,
+adm_name varchar2(20)not null
+);
+COMMENT ON TABLE administrator IS '管理员表';
+COMMENT ON COLUMN administrator.adm_id IS '管理员账号，作为主键';
+COMMENT ON COLUMN administrator.adm_pwd IS '管理员密码';
+COMMENT ON COLUMN administrator.adm_name IS '管理员名字';
 ----------------
 --  通用区👆
 ----------------
@@ -165,16 +213,13 @@ comment on column result_type.rtname is '成果类型名称(考试,作品)';
 ----------------
 
 -- 成果申报表
---drop table application;
---drop table application_succ;
-
 create table application(
     appId varchar2(20) not null,
     comName varchar2(50) not null,
     comNum number not null,
     applicantId char(10) not null,
-    teacher1Id char(10) ,
-    teacher2Id char(10) ,
+    teacher1Id varchar2(10),
+    teacher2Id varchar2(10),
     unit varchar2(20) not null,
     leader varchar2(20),
     teamNum number,
@@ -190,7 +235,10 @@ create table application(
     getAwardImg blob,
     highLight blob,
     status number default 0,
-    constraint PK_APPLICATION_ID primary key (appid)
+    constraint PK_APPLICATION_ID primary key (appid),
+    constraint FK_REFERENCE_TEACHER1 foreign key (teacher1Id) references teacher (tno),
+    constraint FK_REFERENCE_TEACHAR2 foreign key (teacher2Id) references teacher (tno),
+    constraint FK_REFERENCE_AWARD foreign key (awardTypeId) references award_type(atid)
 );
 COMMENT ON TABLE application IS '申请表信息表';
 COMMENT ON COLUMN application.appId IS '申请表编号，作为主键';

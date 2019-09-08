@@ -39,7 +39,7 @@ public class LoginController {
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session){
         int tname= UserService.login(username,password);
-        if(tname == 2){
+        if(tname == 2 |tname == 3 ){
             //登陆成功，防止表单重复提交，可以重定向到主页
             session.setAttribute("loginUser",username);
             return "redirect:/user_index.html";

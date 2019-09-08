@@ -6,7 +6,11 @@
 	<link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
 <!--	<link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">-->
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-
+	<style>
+		p{
+			text-align: center;
+		}
+	</style>
 </head>
 <body class="layui-container" >
 	<div style="width: 310px; height: 500px; margin: 100px auto;">
@@ -17,6 +21,7 @@
 				<li class="layui-this">用户登录</li>
 				<li>管理员登录</li>
 			</ul>
+			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show">
 					<form class="layui-form layui-form-pane" action="dashboard.html" th:action="@{/user/login}" method="post">
