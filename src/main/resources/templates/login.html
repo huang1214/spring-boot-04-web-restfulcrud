@@ -3,64 +3,139 @@
 <head>
 	<meta charset="utf-8">
 	<title>学科竞赛管理系统登陆页面</title>
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">
+	<link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+<!--	<link href="asserts/css/signin.css" th:href="@{/asserts/css/signin.css}" rel="stylesheet">-->
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
-<body class="text-center">
-	<div class="form-signin">
+<body class="layui-container" >
+	<div style="width: 310px; height: 500px; margin: 100px auto;">
 	<dl>
-		<img class="mb-4" th:src="@{/asserts/img/NCU.png}" src="../static/asserts/img/NCU.png" alt="" width="100" height="100">
-		<ul id="myTab" class="nav nav-tabs">
-			<!--data-toggle：触发事件的类型，如 modal，popover，tooltips 等-->
-			<li class="active">
-				<a href="#home" data-toggle="tab" th:text="#{login.tab1}">用户登录</a>
-			</li>
-			<li>
-				<a href="#ios" data-toggle="tab" th:text="#{login.tab2}">管理员登录</a>
-			</li>
-		</ul>
-		<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
-		<div id="myTabContent" class="tab-content">
-			<div class="tab-pane fade in active" id="home">
-				<div class="cont-1">
-					<form action="dashboard.html" th:action="@{/user/login}" method="post">
-						<label class="sr-only" th:text="#{login.username}">Username</label>
-						<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" >
-						<label class="sr-only" th:text="#{login.password}">Password</label>
-						<input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">
-						<div class="checkbox mb-3">
-							<label>
-								<input type="checkbox" value="remember-me"/> [[#{login.remember}]]
-							</label>
+		<img style="display: block; margin: 0 auto	;" th:src="@{/asserts/img/NCU.png}" src="../static/asserts/img/NCU.png" alt="" width="100" height="100">
+		<div class="layui-tab layui-tab-brief">
+			<ul class="layui-tab-title">
+				<li class="layui-this">用户登录</li>
+				<li>管理员登录</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<form class="layui-form layui-form-pane" action="dashboard.html" th:action="@{/user/login}" method="post">
+						<div class="layui-row">
+							<div class="layui-form-item">
+								<label class="layui-form-label" th:text="#{login.username}">Username</label>
+								<div class="layui-input-block">
+	<!--								<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" >-->
+									<input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="on" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label" th:text="#{login.password}">Password</label>
+								<div class="layui-input-block">
+									<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label ">记住我</label>
+								<div class="layui-input-block">
+									<input type="checkbox" name="switch" lay-skin="_switch" lay-text="是|否">
+								</div>
+							</div>
+							<div class="layui-form-item" style="text-align: center;">
+								<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
 						</div>
-						<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>
-						<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
-						<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
 					</form>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="ios">
-				<div class="cont-2">
-					<form action="admin_index.html" th:action="@{/user/a_login}" method="post">
-						<label class="sr-only" th:text="#{login.username}">Username</label>
-						<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">
-						<label class="sr-only" th:text="#{login.password}">Password</label>
-						<input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">
-						<div class="checkbox mb-3">
-							<label>
-								<input type="checkbox" value="remember-me"/> [[#{login.remember}]]
-							</label>
+				<div class="layui-tab-item">
+					<form class="layui-form layui-form-pane" action="dashboard.html" th:action="@{/user/login}" method="post">
+						<div class="layui-row">
+							<div class="layui-form-item">
+								<label class="layui-form-label" th:text="#{login.username}">Username</label>
+								<div class="layui-input-block">
+									<!--								<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" >-->
+									<input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="on" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label" th:text="#{login.password}">Password</label>
+								<div class="layui-input-block">
+									<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label ">记住我</label>
+								<div class="layui-input-block">
+									<input type="checkbox" name="switch" lay-skin="_switch" lay-text="是|否">
+								</div>
+							</div>
+							<div class="layui-form-item" style="text-align: center;">
+								<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							</div>
 						</div>
-						<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>
-						<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>
-						<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>
 					</form>
 				</div>
 			</div>
 		</div>
+<!--		<ul id="myTab" class="nav nav-tabs">-->
+<!--			&lt;!&ndash;data-toggle：触发事件的类型，如 modal，popover，tooltips 等&ndash;&gt;-->
+<!--			<li class="active">-->
+<!--				<a href="#home" data-toggle="tab" th:text="#{login.tab1}">用户登录</a>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<a href="#ios" data-toggle="tab" th:text="#{login.tab2}">管理员登录</a>-->
+<!--			</li>-->
+<!--		</ul>-->
+<!--		<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>-->
+<!--		<div id="myTabContent" class="tab-content">-->
+<!--			<div class="tab-pane fade in active" id="home">-->
+<!--				<div class="cont-1">-->
+<!--					<form action="dashboard.html" th:action="@{/user/login}" method="post">-->
+<!--						<label class="sr-only" th:text="#{login.username}">Username</label>-->
+<!--						<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" >-->
+<!--						<label class="sr-only" th:text="#{login.password}">Password</label>-->
+<!--						<input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">-->
+<!--						<div class="checkbox mb-3">-->
+<!--							<label>-->
+<!--								<input type="checkbox" value="remember-me"/> [[#{login.remember}]]-->
+<!--							</label>-->
+<!--						</div>-->
+<!--						<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>-->
+<!--						<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>-->
+<!--						<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>-->
+<!--					</form>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="tab-pane fade" id="ios">-->
+<!--				<div class="cont-2">-->
+<!--					<form action="admin_index.html" th:action="@{/user/a_login}" method="post">-->
+<!--						<label class="sr-only" th:text="#{login.username}">Username</label>-->
+<!--						<input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">-->
+<!--						<label class="sr-only" th:text="#{login.password}">Password</label>-->
+<!--						<input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">-->
+<!--						<div class="checkbox mb-3">-->
+<!--							<label>-->
+<!--								<input type="checkbox" value="remember-me"/> [[#{login.remember}]]-->
+<!--							</label>-->
+<!--						</div>-->
+<!--						<button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>-->
+<!--						<a class="btn btn-sm" th:href="@{/index.html(l='zh_CN')}">中文</a>-->
+<!--						<a class="btn btn-sm" th:href="@{/index.html(l='en_US')}">English</a>-->
+<!--					</form>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
 	</dl>
 </div>
+	<script src="asserts/js/layui/layui.js"></script>
+
+	<script>
+		//JavaScript代码区域
+		layui.use(['element','form'], function(){
+			var element = layui.element;
+			//触发事件
+		});
+	</script>
 </body>
 </html>
