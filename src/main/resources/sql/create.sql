@@ -16,7 +16,7 @@ create table class(
     cno varchar2(4) primary key ,
     cname varchar2(20) not null ,
     dno varchar2(2) not null ,
-    cgrade char(2) not null ,
+    cgrade varchar2(10) not null ,
     cadmin varchar2(10) not null ,
     cadmintel varchar2(15) ,
     cmaster varchar2(10) not null ,
