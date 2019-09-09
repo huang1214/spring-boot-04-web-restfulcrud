@@ -18,6 +18,7 @@ start with 1
 minvalue 1
 maxvalue 999999999;
 
+--DROP SEQUENCE application_id_Seq
 --部门表
 insert into dept values('1','软件工程','佚名1','18804539085');
 insert into dept values('2','信息安全','佚名2','13982736473');
@@ -79,6 +80,7 @@ insert into prize_type values('3','二等奖');
 insert into prize_type values('4','三等奖');
 insert into prize_type values('5','优秀奖');
 
+--select * from award_type;
 --获奖类型表
 --有奖金：
 --（重点竞赛项目）

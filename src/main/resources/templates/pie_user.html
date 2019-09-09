@@ -3,24 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="./asserts/js/echarts.min.js"></script>
+    <script type="text/javascript" src="./asserts/js/jquery-3.2.1.slim.min.js"></script>
 </head>
-<body style="height: 100%; margin: 0">
-饼状图大哥你在哪？
-<div id="container" style="height: 100%"></div>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-<!--<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-<script type="text/javascript" src="https://api.map.baidu.comapi?v=2.0&ak=xfhhaTThl11qYVrqLZii6w8qE5ggnhrY&__ec_v__=20190126"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>-->
+<body>
+<div id="main" style="width: 600px;height:400px;"></div>
+
 <script type="text/javascript">
-    var dom = document.getElementById("container");
-    var myChart = echarts.init(dom);
-    var app = {};
-    option = null;
+    var myChart = echarts.init(document.getElementById('main'));
     option = {
         title : {
             text: '某站点用户访问来源',
@@ -59,10 +49,7 @@
             }
         ]
     };
-    ;
-    if (option && typeof option === "object") {
-        myChart.setOption(option, true);
-    }
+    myChart.setOption(option);
 </script>
 </body>
 </html>
