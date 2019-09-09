@@ -28,28 +28,28 @@ insert into dept values('4','学工办','佚名4','15180457236');
 --班级表
 --软件工程1701
 --信息安全171
-insert into class values('1701','软件工程1701班','1','2017级'，'赵盼盼','18146618512','班导1'，'班导1电话');
-insert into class values('1702','软件工程1702班','1','2017级'，'赵盼盼','18146618512','班导2'，'班导2电话');
-insert into class values('1703','软件工程1703班','1','2017级'，'赵盼盼','18146618512','班导3'，'班导3电话');
-insert into class values('1704','软件工程1704班','1','2017级'，'赵盼盼','18146618512','班导4'，'班导4电话');
-insert into class values('1705','软件工程1705班','1','2017级'，'赵盼盼','18146618512','班导5'，'班导5电话');
-insert into class values('1706','软件工程1706班','1','2017级'，'赵盼盼','18146618512','班导6'，'班导6电话');
-insert into class values('1707','软件工程1707班','1','2017级'，'熊伟','18146618512','班导7'，'班导7电话');
-insert into class values('1708','软件工程1708班','1','2017级'，'熊伟','18146618512','班导8'，'班导8电话');
-insert into class values('1709','软件工程1709班','1','2017级'，'佚名','18146618512','班导9'，'班导9电话');
-insert into class values('1710','软件工程1710班','1','2017级'，'熊伟','18146618512','班导10'，'班导10电话');
+insert into class values('1701','软件工程1701班','1','2017级','赵盼盼','18146618512','班导1','班导1电话');
+insert into class values('1702','软件工程1702班','1','2017级','赵盼盼','18146618512','班导2','班导2电话');
+insert into class values('1703','软件工程1703班','1','2017级','赵盼盼','18146618512','班导3','班导3电话');
+insert into class values('1704','软件工程1704班','1','2017级','赵盼盼','18146618512','班导4','班导4电话');
+insert into class values('1705','软件工程1705班','1','2017级','赵盼盼','18146618512','班导5','班导5电话');
+insert into class values('1706','软件工程1706班','1','2017级','赵盼盼','18146618512','班导6','班导6电话');
+insert into class values('1707','软件工程1707班','1','2017级','熊伟','18146618512','班导7','班导7电话');
+insert into class values('1708','软件工程1708班','1','2017级','熊伟','18146618512','班导8','班导8电话');
+insert into class values('1709','软件工程1709班','1','2017级','佚名','18146618512','班导9','班导9电话');
+insert into class values('1710','软件工程1710班','1','2017级','熊伟','18146618512','班导10','班导10电话');
 
-insert into class values('171','信息安全1701班','2','2017级'，'辅导员1','18146618512','班导1'，'班导1电话');
-insert into class values('172','信息安全1702班','2','2017级'，'辅导员2','18146618512','班导1'，'班导1电话');
-insert into class values('173','信息安全1703班','2','2017级'，'辅导员3','18146618512','班导1'，'班导1电话');
-insert into class values('174','信息安全1704班','2','2017级'，'辅导员4','18146618512','班导1'，'班导1电话');
+insert into class values('171','信息安全1701班','2','2017级','辅导员1','18146618512','班导1','班导1电话');
+insert into class values('172','信息安全1702班','2','2017级','辅导员2','18146618512','班导1','班导1电话');
+insert into class values('173','信息安全1703班','2','2017级','辅导员3','18146618512','班导1','班导1电话');
+insert into class values('174','信息安全1704班','2','2017级','辅导员4','18146618512','班导1','班导1电话');
 
 
 
 --学生表
-insert into student values('8002117247','牛坤滢','女',to_date('1999-07-19','YYYY-MM-DD')，'10#503','1706','nky'，'13546569607','0','6217****404');
+insert into student values('8002117247','牛坤滢','女',to_date('1999-07-19','YYYY-MM-DD'),'10#503','1706','nky','13546569607','0','6217****404');
 --（这条方便你们登录）
-insert into student values('111','王花花','女',to_date('1999-07-19','YYYY-MM-DD')，'10#503','1706','111'，'13546569607','0','6217****404');
+insert into student values('111','王花花','女',to_date('1999-07-19','YYYY-MM-DD'),'10#503','1706','111','13546569607','0','6217****404');
 
 --教师表
 insert into teacher values('0001','贾晓娟','女',to_date('1987-01','YYYY-MM'),'4','教师1电话','讲师','0001','0','教师1卡号');
@@ -82,57 +82,57 @@ insert into prize_type values('5','优秀奖');
 --获奖类型表
 --有奖金：
 --（重点竞赛项目）
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','1',2000，2000);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','2',1000，1000);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','3',600，600);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','4',400，400);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','1',2000,2000);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','2',1000,1000);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','3',600,600);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','4',400,400);
 
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','1',1000，800);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','2',800，600);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','3',600，400);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','4',400，200);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','1',1000,800);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','2',800,600);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','3',600,400);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','4',400,200);
 
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','1',3000，3000);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','2',2000，2000);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','3',1000，1000);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','4',600，600);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','1',3000,3000);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','2',2000,2000);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','3',1000,1000);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','4',600,600);
 
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','1',2000，2000);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','2',1000，1000);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','3',800，800);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','4',600，600);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','1',2000,2000);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','2',1000,1000);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','3',800,800);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','4',600,600);
 
 --（一般竞赛项目）
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','1',1000，1000);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','2',800，800);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','3',600，600);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','4',400，400);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','1',1000,1000);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','2',800,800);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','3',600,600);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','4',400,400);
 
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','1',800，400);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','2',600，300);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','3',400，200);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','4',200，100);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','1',800,400);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','2',600,300);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','3',400,200);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','4',200,100);
 
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','1',2000，2000);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','2',1000，1000);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','3',800，800);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','4',600，600);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','1',2000,2000);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','2',1000,1000);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','3',800,800);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','4',600,600);
 
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','1',1000，500);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','2',800，400);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','3',600，300);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','4',400，200);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','1',1000,500);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','2',800,400);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','3',600,300);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','4',400,200);
 
 --无奖金
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','5',0，0);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','5',0，0);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','5',0，0);
-insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','5',0，0);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','1','5',0,0);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','1','0','5',0,0);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','1','5',0,0);
+insert into award_type values(award_type_atid_Seq.Nextval,'1','0','0','5',0,0);
 
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','5',0，0);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','5',0，0);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','5',0，0);
-insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','5',0，0);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','1','5',0,0);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','1','0','5',0,0);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','1','5',0,0);
+insert into award_type values(award_type_atid_Seq.Nextval,'0','0','0','5',0,0);
 
 --获奖项类型表
 --备注 1 ：重点（A类） 0 ：一般
