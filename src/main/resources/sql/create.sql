@@ -119,6 +119,16 @@ comment on column student.stel is '学生电话';
 comment on column student.state is '学生状态：0表示在校，1表示离校';
 comment on column student.card_num is '银行卡号';
 
+--创建成果类型表
+create table result_type(
+                            rtid char(1) not null,
+                            rtname varchar2(50) not null,
+                            constraint PK_RESULT_TYPE primary key (rtid)
+);
+comment on table result_type is '成果类型表';
+comment on column result_type.rtid is '成果类型编号';
+comment on column result_type.rtname is '成果类型名称(考试,作品)';
+
 
 --创建学科和科技竞赛目录表
 create table com_table(
@@ -149,15 +159,6 @@ comment on table level_type is '级别类型表';
 comment on column level_type.ltid is '级别类型编号';
 comment on column level_type.ltname is '级别类型名称(省级,国家级)';
 
---创建成果类型表
-create table result_type(
-        rtid char(1) not null,
-        rtname varchar2(50) not null,
-        constraint PK_RESULT_TYPE primary key (rtid)
-);
-comment on table result_type is '成果类型表';
-comment on column result_type.rtid is '成果类型编号';
-comment on column result_type.rtname is '成果类型名称(考试,作品)';
 
 --创建所获奖项类型表
 create table prize_type(

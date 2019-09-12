@@ -1,5 +1,6 @@
+
 create or replace trigger tri_insert_class
-  before insert on class  
+  before insert on class
   for each row
 declare
   -- local variables here
