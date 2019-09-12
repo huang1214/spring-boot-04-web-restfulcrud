@@ -6,7 +6,7 @@
     <title>普通用户界面</title>
     <link rel="stylesheet" href="asserts/css/layui.css">
     <link href="https://cdn.bootcss.com/font-awesome/5.10.2/css/all.min.css" rel="stylesheet">
-    <script src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+    <script src="asserts/js/jquery-3.2.1.slim.min.js"></script>
     <style>
         .layui-footer{
             text-align: center;
@@ -55,25 +55,24 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="leftnav">
                 <li class="layui-nav-item layui-this">
-                    <a class="nav-item-side site-active" href="javascript:;" data-url="student/dashboard" data-id="1" data-title="仪表盘" data-type="tabAdd"><i class="fa fa-home fa-fw"></i>仪表盘</a>
+                    <a class="nav-item-side site-active" href="javascript:;" data-url="user/dashboard" data-id="1" data-title="仪表盘" data-type="tabAdd"><i class="fa fa-home fa-fw"></i>仪表盘</a>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="nav-item-side" href="javascript:;"><i class="fa fa-id-card fa-fw" aria-hidden="true"></i>预算备案</a>
                     <dl class="layui-nav-child">
-<!--                        现在的一个问题就是data-url的网页路径问题，还不清楚是如何解析进网页的-->
-                        <dd><a href="javascript:;" data-url="student/beian" data-id="2" data-title="备案须知" class="site-active" data-type="tabAdd">备案须知</a></dd>
-                        <dd><a href="javascript:;" data-url="#" data-id="3" data-title="备案申报" class="site-active" data-type="tabAdd">备案申报</a></dd>
-                        <dd><a href="javascript:;" data-url="#" data-id="4" data-title="备案状态" class="site-active" data-type="tabAdd">备案状态</a></dd>
-                        <dd><a href="javascript:;" data-url="#" data-id="5" data-title="历史信息" class="site-active" data-type="tabAdd">历史信息</a></dd>
+                        <dd><a href="javascript:;" data-url="user/bill_notice" data-id="2" data-title="备案须知" class="site-active" data-type="tabAdd">备案须知</a></dd>
+                        <dd><a href="javascript:;" data-url="user/bill_form" data-id="3" data-title="备案申报" class="site-active" data-type="tabAdd">备案申报</a></dd>
+                        <dd><a href="javascript:;" data-url="user/bill_state" data-id="4" data-title="备案状态" class="site-active" data-type="tabAdd">备案状态</a></dd>
+                        <dd><a href="javascript:;" data-url="user/bill_history" data-id="5" data-title="备案历史" class="site-active" data-type="tabAdd">备案历史</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a class="nav-item-side" href="javascript:;"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i>成果管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-url="#" data-id="6" data-title="申请须知" class="site-active" data-type="tabAdd">申请须知</a></dd>
-                        <dd><a href="javascript:;" data-url="#" data-id="7" data-title="申请信息" class="site-active" data-type="tabAdd">申请信息</a></dd>
-                        <dd><a href="javascript:;" data-url="#" data-id="8" data-title="申请状态" class="site-active" data-type="tabAdd">申请状态</a></dd>
-                        <dd><a href="javascript:;" data-url="#" data-id="9" data-title="历史信息" class="site-active" data-type="tabAdd">历史信息</a></dd>
+                        <dd><a href="javascript:;" data-url="user/application_notice" data-id="6" data-title="申请须知" class="site-active" data-type="tabAdd">申请须知</a></dd>
+                        <dd><a href="javascript:;" data-url="user/application_form" data-id="7" data-title="申请信息" class="site-active" data-type="tabAdd">申请信息</a></dd>
+                        <dd><a href="javascript:;" data-url="user/application_state" data-id="8" data-title="申请状态" class="site-active" data-type="tabAdd">申请状态</a></dd>
+                        <dd><a href="javascript:;" data-url="user/application_history" data-id="9" data-title="申请历史" class="site-active" data-type="tabAdd">申请历史</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a class="nav-item-side site-active" data-url="#" data-id="10" data-title="教育科研" data-type="tabAdd"><i class="fa fa-flask fa-fw" aria-hidden="true"></i>教育科研</a></li>
@@ -89,7 +88,7 @@
                 <li class="layui-this">网站设置</li>
             </ul>
             <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">1</div>
+                <div class="layui-tab-item layui-show">这里请填写内容</div>
             </div>
         </div>
     </div>
@@ -113,7 +112,7 @@
                 //关于tabAdd的方法所传入的参数可看layui的开发文档中基础方法部分
                 element.tabAdd('tab', {
                     title: name,
-                    content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="'+url+'.html" style="width:100%;height:99%;"></iframe>',
+                    content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="'+url+'" style="width:100%;height:99%;"></iframe>',
                     id: id //规定好的id
                 })
 
