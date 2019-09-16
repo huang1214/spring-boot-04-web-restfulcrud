@@ -100,6 +100,13 @@
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.1.0</version>
         </dependency>
+
+        <!--fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.42</version>
+        </dependency>
     </dependencies>
 
     <build>

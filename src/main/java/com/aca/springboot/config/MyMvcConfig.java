@@ -28,30 +28,31 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         WebMvcConfigurerAdapter adapter = new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                /* 项目的路径*/
-                /* 1.登录页面*/
-                registry.addViewController("/").setViewName("login");
+                /* 这是之前项目的路径*/
+                registry.addViewController("/main.html").setViewName("dashboard");
                 registry.addViewController("/index.html").setViewName("login");
-                /* 2.用户主页面*/
+                registry.addViewController("/admin").setViewName("admin");
+                registry.addViewController("/pie_user").setViewName("pie_user");
+                registry.addViewController("/application/add").setViewName("/application/add");
+                registry.addViewController("/application/status").setViewName("/application/status");
+                registry.addViewController("/application/list").setViewName("/application/list");
+                registry.addViewController("/application/notice").setViewName("/application/notice");
+                registry.addViewController("/application/changepwd_user").setViewName("/application/changepwd_user");
+                registry.addViewController("/admin/audit").setViewName("/admin/audit");
+                registry.addViewController("/admin/competition").setViewName("/admin/competition");
+                registry.addViewController("/admin/prize").setViewName("/admin/prize");
+                registry.addViewController("/admin/manage_user").setViewName("/admin/manage_user");
+                registry.addViewController("/admin/manage_admin").setViewName("/admin/manage_admin");
+                registry.addViewController("/admin/changepwd_admin").setViewName("/admin/changepwd_admin");
+
+
+                registry.addViewController("/test_json.html").setViewName("test_json");
+
+                /* 这是现在项目的路径*/
+                registry.addViewController("/").setViewName("login");
                 registry.addViewController("/user_index.html").setViewName("user_index");
                 registry.addViewController("/admin_index.html").setViewName("admin_index");
-                /* 3.试用页面*/
                 registry.addViewController("/pie_user.html").setViewName("pie_user");  //饼状图
-                registry.addViewController("/user_info.html").setViewName("user_info"); //用户基本信息
-
-                /* 4.普通用户*/
-                registry.addViewController("user/dashboard").setViewName("/user/dashboard"); //仪表盘
-                /* 4.1预算备案*/
-                registry.addViewController("user/bill_notice").setViewName("/user/bill_notice"); //备案须知
-                registry.addViewController("user/bill_form").setViewName("/user/bill_form"); //备案申报
-                registry.addViewController("user/bill_state").setViewName("/user/bill_state"); //备案状态
-                registry.addViewController("user/bill_history").setViewName("/user/bill_history"); //预算备案：历史信息
-                /* 4.2成果管理*/
-                registry.addViewController("user/application_notice").setViewName("/user/application_notice"); //申请须知
-                registry.addViewController("user/application_form").setViewName("/user/application_form"); //申请信息
-                registry.addViewController("user/application_state").setViewName("/user/application_state"); //申请状态
-                registry.addViewController("user/application_history").setViewName("/user/application_history"); //成果管理：历史信息
-
             }
 
             //注册拦截器

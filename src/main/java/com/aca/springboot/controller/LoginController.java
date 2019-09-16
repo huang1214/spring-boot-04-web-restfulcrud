@@ -1,10 +1,14 @@
 package com.aca.springboot.controller;
 
+import com.aca.springboot.service.testService;
+import com.alibaba.fastjson.JSONObject;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.View;
 import java.util.List;
@@ -20,6 +24,9 @@ public class LoginController {
     //@RequestMapping(value = "/user/login",method = RequestMethod.POST)
     @Autowired
     private com.aca.springboot.service.UserService UserService;
+
+    @Autowired
+    private testService testService;
 
     //用户登录
     /**
@@ -102,5 +109,22 @@ public class LoginController {
             //跳出弹窗，提示两次密码不正确
         }
         return mv;
+    }
+
+
+    //表格查询部门页面，测试
+    @ResponseBody
+    @GetMapping(value = "/test")
+    public JSONObject aaa(HttpServletRequest request){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+//        System.err.println(page +","+limit);
+        return testService.list_tset(page,limit);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/test/edit")
+    public void bbb(@RequestParam("edit_dept") String aaa){
+        System.out.println(aaa);
     }
 }
