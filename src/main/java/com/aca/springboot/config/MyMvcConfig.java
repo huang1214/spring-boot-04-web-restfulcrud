@@ -52,6 +52,10 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 registry.addViewController("user/application_state").setViewName("/user/application_state"); //申请状态
                 registry.addViewController("user/application_history").setViewName("/user/application_history"); //成果管理：历史信息
 
+
+                /* 测试表格页面*/
+                registry.addViewController("test_json.html").setViewName("/test_json"); //显示部门的表格
+
             }
 
             //注册拦截器
