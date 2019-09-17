@@ -118,13 +118,24 @@ public class LoginController {
     public JSONObject aaa(HttpServletRequest request){
         int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
         int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
-//        System.err.println(page +","+limit);
+//
         return testService.list_tset(page,limit);
     }
 
+    //点击删除后访问controller中的此方法
     @ResponseBody
-    @GetMapping(value = "/test/edit")
-    public void bbb(@RequestParam("edit_dept") String aaa){
-        System.out.println(aaa);
+    @RequestMapping(value = "/test/dele")
+    public int ccc(HttpServletRequest request){
+        String id = request.getParameter("param");
+        return testService.delete_dept(id);
+    }
+
+    //点击编辑后访问controller中的此方法
+    @ResponseBody
+    @RequestMapping(value = "/test/edit")
+    public boolean bbb(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("param"));
+        System.out.println(id);
+        return true;
     }
 }
