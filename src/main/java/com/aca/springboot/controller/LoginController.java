@@ -1,5 +1,6 @@
 package com.aca.springboot.controller;
 
+import com.aca.springboot.entities.test;
 import com.aca.springboot.service.testService;
 import com.alibaba.fastjson.JSONObject;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
@@ -133,9 +134,11 @@ public class LoginController {
     //点击编辑后访问controller中的此方法
     @ResponseBody
     @RequestMapping(value = "/test/edit")
-    public boolean bbb(HttpServletRequest request){
-        int id = Integer.parseInt(request.getParameter("param"));
-        System.out.println(id);
+    public boolean bbb(HttpServletRequest request,@RequestBody test t){
+        //int id = Integer.parseInt(request.getParameter("param"));
+
+        System.out.println(t.getDno());
+        System.out.println(t.getDadmin());
         return true;
     }
 }

@@ -5,15 +5,40 @@
     <meta charset="utf-8">
     <title>table模块快速使用</title>
     <link rel="stylesheet" href="asserts/js/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="./asserts/js/jquery-3.2.1.slim.min.js"></script>
+
+    <style>
+        #demo22{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-<table id="demo" lay-filter="test"></table>
+<!--<table id="demo" lay-filter="test"></table>-->
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+
+<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+<input type="text" data-method="offset" data-type="t" class="layui-btn layui-btn-normal" id="get_id">
+</div>
+
+<div id="demo22">
+    <table class="layui-hide" id="demo2" lay-filter="test"></table>
+</div>
+
+</table>
+
+
 
 <script src="asserts/js/jquery-1.12.4.js"></script>
 <script src="asserts/js/layui/layui.all.js"></script>
 
 
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+    </div>
+</script>
 
 <script type="text/html" id="barDemo">
     <button class="layui-btn layui-btn-xs"  lay-event="edit" name="edit_dept" id="edit_dept">编辑</button>
@@ -22,9 +47,39 @@
 
 
 <script>
-    layui.define(['table'], function(){
+
+    layui.define(['table','layer'], function(){
         var table = layui.table;
-        var common = layui.common;
+        var $ = layui.jquery;
+        var layer = layui.layer; //独立版的layer无需执行这一句
+
+
+        var active = {
+            offset: function(othis) {
+                var type = othis.data('type')  //这里我也不懂在干嘛，反正就是给后面弹出层id用的
+
+                layer.open({
+                    type: 1  //1为页面层
+                    ,title: '选择部门'  //弹出层标题
+                    ,area: ['500px', '400px']   //设置弹出层大小[宽，高]
+                    , offset: ['100px', '50px']   //设置弹出层位置 //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    , id: 'layerDemo' + type //防止重复弹出，点击这个input只能有一个弹出层
+                    ,content:$("#demo22")   //弹出层内容为demo22块，不能直接是表格id
+                    , btnAlign: 'c' //按钮居中
+                    , shade: 0 //不显示遮罩
+                    , yes: function () {  //确定按钮回调方法， 需要手动关闭弹出层
+                        layer.closeAll();
+                    }
+                });
+            }
+        }
+
+        //点击input，执行activ（就是展示弹出层），里面两行内容我没改，因为我也没看懂
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
         //第一个实例
         table.render({
             elem: '#demo'
@@ -42,7 +97,26 @@
             ]
             ]
         });
-        //监听工具条
+
+        //第二个表格，单选
+        table.render({
+            elem: '#demo2'
+            ,height: 312
+            ,url: 'http://localhost:8083/test/' //数据接口
+            ,method:"get"
+            ,page: true //开启分页
+            ,toolbar:'#toolbarDemo'
+            ,cols: [
+                [ //表头
+                    {type:'radio'}
+                    ,{field: 'dno', title: '部门编号', width:100, sort: true}
+                    ,{field: 'dname', title: '部门名称', width:100}
+                    ,{field: 'dadmin', title: '佚名', width:100}
+                    ,{field: 'dtel', title: '部门电话', width:120}
+                ]
+            ]
+        });
+        //第一个表格实例的监听工具条
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -74,8 +148,11 @@
                 console.log(data.dno);
                 $.ajax(
                     {
-                        url: 'http://localhost:8083/test/edit/?param='+data.dno,     // 请求地址, 就是你的控制器, 如 test.com/home/index/index
-                        type: 'GET',   // 请求方式
+                        url: 'http://localhost:8083/test/edit',     // 请求地址, 就是你的控制器, 如 test.com/home/index/index
+                        type: 'POST',   // 请求方式
+                        data:JSON.stringify(data),
+                        dataType:"json",
+                        contentType:"application/json",
                         success: function (result) {
                             console.log('success...'); // 请求成功后的回调函数, result 为响应内容
                         },
@@ -84,10 +161,21 @@
                         }
                     }
                 );
-                layer.confirm("你点击 了查看");
+                layer.confirm(JSON.stringify(data));
             } else if(layEvent === 'LAYTABLE_TIPS'){
                 layer.alert('Hi，头部工具栏扩展的右侧图标。');
             }
+        });
+
+        //第二个表格实例的单选框的选择的监听工作条
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
+            switch(obj.event){
+                case 'getCheckData':
+                    var data = checkStatus.data;  //获取选中行数据
+                    document.getElementById("get_id").value = data[0].dno;  //将获取的数据中的dno值给input
+                    break;
+            };
         });
     });
 </script>
