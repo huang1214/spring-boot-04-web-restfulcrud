@@ -23,11 +23,26 @@
 </div>
 
 <div id="demo22">
+    <form class="layui-form" action="">
+        <label class="layui-form-label">部门名称：</label>
+        <div class="layui-inline">
+            <input class="layui-input" name="dname" id="dname" autocomplete="off" placeholder="请输入部门姓名">
+        </div>
+
+        部门主管：
+        <div class="layui-inline">
+            <input class="layui-input" name="dadmin" id="dadmin" autocomplete="off" placeholder="请输入部门主管">
+        </div>
+
+        <button type="button" class="layui-btn" data-type="reload" id="search">搜索</button>
+        <button type="reset" class="layui-btn">重置</button>
+
+    </form>
+
     <table class="layui-hide" id="demo2" lay-filter="test"></table>
 </div>
 
 </table>
-
 
 
 <script src="asserts/js/jquery-1.12.4.js"></script>
@@ -61,7 +76,7 @@
                 layer.open({
                     type: 1  //1为页面层
                     ,title: '选择部门'  //弹出层标题
-                    ,area: ['500px', '400px']   //设置弹出层大小[宽，高]
+                    ,area: ['800px', '400px']   //设置弹出层大小[宽，高]
                     , offset: ['100px', '50px']   //设置弹出层位置 //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                     , id: 'layerDemo' + type //防止重复弹出，点击这个input只能有一个弹出层
                     ,content:$("#demo22")   //弹出层内容为demo22块，不能直接是表格id
@@ -91,7 +106,7 @@
                 [ //表头
                 {field: 'dno', title: '部门编号', width:100, sort: true, fixed: 'left'}
                 ,{field: 'dname', title: '部门名称', width:100}
-                ,{field: 'dadmin', title: '佚名', width:100}
+                ,{field: 'dadmin', title: '部门主管', width:100}
                 ,{field: 'dtel', title: '部门电话', width:120}
                 ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
             ]
@@ -109,10 +124,10 @@
             ,cols: [
                 [ //表头
                     {type:'radio'}
-                    ,{field: 'dno', title: '部门编号', width:100, sort: true}
-                    ,{field: 'dname', title: '部门名称', width:100}
-                    ,{field: 'dadmin', title: '佚名', width:100}
-                    ,{field: 'dtel', title: '部门电话', width:120}
+                    ,{field: 'dno', title: '部门编号', width:150, sort: true}
+                    ,{field: 'dname', title: '部门名称', width:150}
+                    ,{field: 'dadmin', title: '部门主管', width:150}
+                    ,{field: 'dtel', title: '部门电话', width:170}
                 ]
             ]
         });
@@ -176,6 +191,31 @@
                     document.getElementById("get_id").value = data[0].dno;  //将获取的数据中的dno值给input
                     break;
             };
+        });
+
+        //条件模糊查询
+        var $ = layui.$, act = {
+            reload: function () {
+                var dname = $('#dname').val();
+                var dadmin = $('#dadmin').val();
+                //执行重载
+                table.reload('demo2', {   //demo2为表格的id名
+                    method:'POST'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        dname: dname,//逗号隔开
+                        dadmin: dadmin
+                    }
+                    ,url: 'http://localhost:8083/test/search/'    //访问controller中的方法
+                }, 'data');
+            }
+        };
+
+        $('#search').on('click', function () {      //点击查询调用表格重载，这两行我也没太看懂，就会改个名
+            var type = $(this).data('type');      //百度说固定用法，无需深究
+            act[type] ? act[type].call(this) : '';   //不太懂，反正就开始重载 了
         });
     });
 </script>

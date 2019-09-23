@@ -113,13 +113,15 @@ public class LoginController {
     }
 
 
+
     //表格查询部门页面，测试
     @ResponseBody
     @GetMapping(value = "/test")
-    public JSONObject aaa(HttpServletRequest request){
+    public JSONObject aaa(HttpServletRequest request
+    ){
         int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
         int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
-//
+
         return testService.list_tset(page,limit);
     }
 
@@ -140,5 +142,18 @@ public class LoginController {
         System.out.println(t.getDno());
         System.out.println(t.getDadmin());
         return true;
+    }
+
+    //点击搜索后，执行此方法
+    @ResponseBody
+    @RequestMapping(value = "/test/search")
+    public JSONObject bbb(HttpServletRequest request,
+                          @RequestParam("dname") String dname,
+                          @RequestParam("dadmin") String dadmin){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+
+        return testService.list_tset_search(page,limit,dname,dadmin);
+
     }
 }

@@ -13,6 +13,23 @@
         select * from dept
     </select>
 
+
+    <!--弹出层中对表格进行条件模糊查询-->
+    <select id="test_search" resultMap="test_result">
+        select * from dept
+        <where>
+            <if test="dname.length()== 0">
+                dadmin like '%'||#{dadmin}||'%'
+            </if>
+            <if test="dadmin.length() == 0 ">
+                dname like '%'||#{dname}||'%'
+            </if>
+            <if test=" dadmin.length()>0 and dname.length()>0 ">
+                dname like '%'||#{dname}||'%' and dadmin like '%'||#{dadmin}||'%'
+            </if>
+        </where>
+    </select>
+
     <delete id="delete_dept">
         delete dept where dno = #{dept_id}
     </delete>
