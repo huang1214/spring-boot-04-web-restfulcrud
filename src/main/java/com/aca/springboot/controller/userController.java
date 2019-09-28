@@ -1,6 +1,7 @@
 package com.aca.springboot.controller;
 
 import com.aca.springboot.service.UserService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -131,5 +133,18 @@ public class userController {
             return mv;
         }
         return mv;
+    }
+
+    //关于教师信息处理部分
+    /*
+     * 获取后台所有教师信息
+     * @return   所有信息，json数据格式
+     */
+    @ResponseBody
+    @GetMapping(value = "/getAllTeacher")
+    public JSONObject teacher_All(HttpServletRequest request){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+        return userService.teacher_All(page,limit);
     }
 }

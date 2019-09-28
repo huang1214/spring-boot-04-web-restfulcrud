@@ -25,7 +25,10 @@ insert into dept values('2','信息安全','佚名2','13982736473');
 insert into dept values('3','研究生院办','佚名3','17768237238');
 insert into dept values('4','学工办','佚名4','15180457236');
 --delete from dept;
-
+update dept set dcollege ='软件学院' where dept.dno='1';
+update dept set dcollege ='软件学院' where dept.dno='2';
+update dept set dcollege ='软件学院' where dept.dno='3';
+update dept set dcollege ='软件学院' where dept.dno='4';
 --班级表
 --软件工程1701
 --信息安全171

@@ -14,7 +14,7 @@ import java.util.Map;
 public interface UserMapper {
 
     public List listUser();
-
+    public List teacher_All();
     //login(map)修改过
     //普通用户登录
     public void login(Map map);

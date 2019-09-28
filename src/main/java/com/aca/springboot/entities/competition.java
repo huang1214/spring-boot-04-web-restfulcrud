@@ -5,6 +5,7 @@ public class competition {
     private String ctname;
     private String host_unit;
     private String com_type;
+    private String result_type;//新添加的数据
     private String reference_paper;
 
     public String getCtid() {
@@ -37,6 +38,14 @@ public class competition {
 
     public void setCom_type(String com_type) {
         this.com_type = com_type;
+    }
+
+    public String getResult_type() {
+        return result_type;
+    }
+
+    public void setResult_type(String result_type) {
+        this.result_type = result_type;
     }
 
     public String getReference_paper() {

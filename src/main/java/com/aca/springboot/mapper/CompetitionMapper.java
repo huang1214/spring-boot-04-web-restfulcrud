@@ -10,6 +10,9 @@ import java.util.List;
 public interface CompetitionMapper {
     public List com_All();
 
+    //条件查询结果  按照比赛名称关键词查找比赛名称
+    public List ctname_search(@Param("search_ctname") String search_ctname);
+
     public int insert_com(@Param("ctname") String ctname,
                           @Param("host_unit") String host_unit,
                           @Param("com_type") String com_type,

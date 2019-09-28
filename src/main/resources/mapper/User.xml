@@ -69,4 +69,23 @@
     <insert id="insert_admin">
         insert into administrator(adm_id,adm_pwd,adm_name) values(#{adm_id},#{adm_pwd},#{adm_name})
     </insert>
+
+    <!--返回所有教师信息-->
+    <resultMap id="teacher_class" type="com.aca.springboot.entities.teacher">
+        <id property="tno" column="tno"/>
+        <result property="tname" column="tname"/>
+        <result property="tsex" column="tsex"/>
+        <result property="tbirthday" column="tbirthday"/>
+        <result property="dno" column="dno"/>
+        <result property="ttel" column="ttel"/>
+        <result property="ttitle" column="ttitle"/>
+        <result property="tpwd" column="tpwd"/>
+        <result property="tstate" column="tstate"/>
+        <result property="card_num" column="card_num"/>
+    </resultMap>
+
+    <select id="teacher_All" resultMap="teacher_class">
+        select * from teacher,dept where dept.dno=teacher.dno
+    </select>
+
 </mapper>
