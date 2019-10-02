@@ -2,9 +2,191 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>备案申报</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <title>备案申请</title>
+    <style>
+        .formdata{
+            width: 645px;
+            margin: 25px auto;
+        }
+    </style>
 </head>
 <body>
-这是“备案申报”页面
+<div class="formdata layui-row">
+    <form action="POST" class="layui-form layui-form-pane">
+        <!-- 竞赛信息 -->
+        <div class="layui-form-item">
+            <div class="layui-form-label">选择竞赛 <span style="color: red">*</span></div>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" required  lay-verify="required" name="competition">
+            </div>
+        </div>
+
+        <!-- 参赛年份 -->
+        <div class="layui-form-item">
+            <div class="layui-form-label">参赛日期<span style="color: red">*</span></div>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" required  lay-verify="required" id="cyear">
+            </div>
+
+        </div>
+
+
+        <!-- 类别型号编号（0省赛，1国赛 -->
+        <div class="layui-form-item">
+            <div class="layui-form-label">类别型号<span style="color: red">*</span></div>
+            <div class="layui-input-inline">
+                <select name="leibie" required lay-search lay-verify="required" >
+                    <option value="" selected>请选择</option>
+                    <option value="0">省赛</option>
+                    <option value="1">国赛</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 竞赛信息描述 -->
+        <!-- <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">文本域</label>
+            <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div> -->
+        <!-- 原则上应该通过判断是否是团队赛给出选项，但是考虑到一个代表报销
+        一批人的例子，所以这里即使是个人赛也展示，至于数据统计，可以额外建表 -->
+        <!-- 团队负责人：外键 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">负责人</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title"  placeholder="请输入负责人" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!-- 团队名称，判断 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">团队名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" placeholder="请输入团队名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!-- 指导老师1 外键，可以为空-->
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">指导老师1</label>
+                <div class="layui-input-inline">
+                    <select name="teacher1" lay-verify="" lay-search>
+                        <option value=""></option>
+                        <optgroup label="软件工程">
+                            <option value="0">老师1</option>
+                            <option value="1">老师2</option>
+                        </optgroup>
+                        <optgroup label="信息安全">
+                            <option value="2">老师3</option>
+                            <option value="3">老师4</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">指导老师2</label>
+                <div class="layui-input-inline">
+                    <select name="teacher1" lay-verify="" lay-search>
+                        <option value=""></option>
+                        <optgroup label="软件工程">
+                            <option value="0">老师1</option>
+                            <option value="1">老师2</option>
+                        </optgroup>
+                        <optgroup label="信息安全">
+                            <option value="2">老师3</option>
+                            <option value="3">老师4</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- 成果类型，如果她们给了，那么这里就默认选定，并且锁定，否则就用户选 -->
+        <div class="layui-form-item">
+            <div class="layui-form-label">成果类型<span style="color: red">*</span></div>
+            <div class="layui-input-block">
+                <select name="leibie" required  lay-verify="required" lay-search>
+                    <option value="" selected>请选择</option>
+                    <option value="0">作品</option>
+                    <option value="1">考试</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 参赛作品名：这里判断成果类型作为依据是否出现 -->
+        <div class="layui-form-item">
+            <div class="layui-form-label">参赛作品名<span style="color: red">*</span></div>
+            <div class="layui-input-block">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入作品名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!-- 预算金额：必写 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">预算金额<span style="color: red">*</span></label>
+            <div class="layui-input-inline">
+                <input type="text" name="price_min" required  lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!-- 预算描述:必写 -->
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">预算描述<span style="color: red">*</span></label>
+            <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入内容" required  lay-verify="required" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <!-- 申请状态：0.未审核，1审核不通过，2审核通过，样式待定 -->
+
+        <!-- 上传凭证附件：必填 -->
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>上传多张凭证图片<span style="color: red">*</span></legend>
+        </fieldset>
+
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="test2" >多图片上传</button>
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                预览图：
+                <div class="layui-upload-list" id="demo2"></div>
+            </blockquote>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    layui.use(['laydate','form','upload'], function(){
+        var $ = layui.jquery
+        var laydate = layui.laydate;
+        var upload = layui.upload;
+        var form = layui.form;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#cyear' //指定元素
+        });
+        upload.render({
+            elem: '#test2'
+            ,url: '/upload/'
+            ,multiple: true
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+                });
+            }
+            ,done: function(res){
+                //上传完毕
+            }
+        });
+        form.on('select()',function(date){
+
+        });
+    });
+</script>
 </body>
 </html>
