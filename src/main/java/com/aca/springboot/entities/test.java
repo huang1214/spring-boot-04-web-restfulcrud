@@ -17,6 +17,17 @@ public class test {
     @JSONField(ordinal = 4)
     private String dtel;
 
+    @JSONField(ordinal = 5)
+    private String dcollege;
+
+    public String getDcollege() {
+        return dcollege;
+    }
+
+    public void setDcollege(String dcollege) {
+        this.dcollege = dcollege;
+    }
+
     public String getDno() {
         return dno;
     }
@@ -56,6 +67,7 @@ public class test {
                 ", dname='" + dname + '\'' +
                 ", dadmin='" + dadmin + '\'' +
                 ", dtel='" + dtel + '\'' +
+                ", dcollege='" + dcollege + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑老师的表单提交</title>
+    <link rel="stylesheet" href="asserts/js/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="./asserts/js/jquery-3.2.1.slim.min.js"></script>
+</head>
+<body>
+
+<div id="teacher_edit">
+    <form class="layui-form-item" method="get" action="/admin/teacher/edit">
+
+        <label class="layui-form-label">教师名称：</label>
+        <div class="layui-inline">
+            <input class="layui-input" name="tname" id="tname" autocomplete="off">
+        </div>
+        <br>
+
+        <label class="layui-form-label">教师性别：</label>
+        <div class="layui-inline">
+            <input type="text" class="layui-input" name="tsex" id="tsex" autocomplete="off">
+        </div>
+        <br>
+
+        <label class="layui-form-label">教师生日：</label>
+        <div class="layui-input-inline">
+            <input type="text" lay-verify="required" class="layui-input" name="tbirthday" id="tbirthday" autocomplete="on">
+        </div>
+        <br>
+
+        <label class="layui-form-label">所属部门：</label>
+        <div class="layui-input-inline">
+            <input type="text" lay-verify="required" class="layui-input" name="dname" id="dname" list="dept_name" autocomplete="off">
+            <datalist id="dept_name"></datalist>
+        </div>
+        <br>
+        <label class="layui-form-label">所属学院：</label>
+        <div class="layui-input-inline">
+            <input type="text" lay-verify="required" class="layui-input" name="dcollege" id="dcollege" list="college" autocomplete="off">
+            <datalist id="college"></datalist>
+        </div>
+        <br>
+
+        <label class="layui-form-label">教师电话：</label>
+        <div class="layui-input-inline">
+            <input type="text" lay-verify="required" class="layui-input" name="ttel" id="ttel" autocomplete="off">
+        </div>
+        <br>
+
+        <label class="layui-form-label">教师职称：</label>
+        <div class="layui-input-inline">
+            <input type="text" lay-verify="required" class="layui-input" name="ttitle" id="ttitle" autocomplete="off">
+        </div>
+        <br>
+
+        <label class="layui-form-label">教师状态：</label>
+        <div class="layui-input-block">
+            <select style="width: 142px;" name="tstate" id="tstate" lay-filter="aihao">
+                <option value="0">在校</option>
+                <option value="1">离校</option>
+            </select>
+        </div>
+        <br>
+
+        <label class="layui-form-label">教师卡号：</label>
+        <div class="layui-input-inline">
+            <input type="text" lay-verify="required" class="layui-input" name="card_num" id="card_num" autocomplete="off">
+        </div>
+        <br>
+
+        <div id="btn" class="layui-input-block">
+            <button type="submit" class="layui-btn layui-btn-normal" data-type="reload" name="tno" id="edit">编辑</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </form>
+</div>
+
+<script src="asserts/js/jquery-1.12.4.js"></script>
+<script src="asserts/js/layui/layui.all.js"></script>
+</body>
+<script>
+    //获取参数
+    var url = document.location.toString();//获取url地址
+    var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+    var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+    var tname = decodeURI(arr[0].split("=")[1]);//获取数组中第一个参数
+    var tsex=decodeURI(arr[1].split("=")[1]);//第二个参数
+    var tbirthday=decodeURI(arr[2].split("=")[1]);//第3个参数
+    var dname=decodeURI(arr[3].split("=")[1]);//第4个参数
+    var dcollege=decodeURI(arr[4].split("=")[1]);
+    var ttel=decodeURI(arr[5].split("=")[1]);//第5个参数
+    var ttitle=decodeURI(arr[6].split("=")[1]);//第6个参数
+    var tstate=decodeURI(arr[7].split("=")[1]);//第7个参数
+    var card_num=decodeURI(arr[8].split("=")[1]);//第8个参数
+    var tno=decodeURI(arr[9].split("=")[1]);//第9个参数
+
+    console.log(tsex);
+    if(tname != "undefined"){document.getElementById('tname').value=tname;}
+    if(tsex !="undefined"){document.getElementById('tsex').value=tsex;}
+    if(tbirthday != "undefined"){document.getElementById('tbirthday').value=tbirthday};
+    if(dname != "undefined"){document.getElementById('dname').value=dname;}
+    if(dcollege != "undefined"){document.getElementById('dcollege').value=dcollege;}
+    if(ttel != "undefined"){document.getElementById('ttel').value=ttel;}
+    if(ttitle != "undefined"){document.getElementById('ttitle').value=ttitle;}
+    if(tstate != "undefined"){document.getElementById('tstate').value=tstate;}
+    if(card_num != "undefined"){document.getElementById('card_num').value=card_num;}
+    document.getElementById('edit').value=tno;
+
+
+    //给所属部门的datalist 数据库绑定
+    var info_url = "http://localhost:8083//admin/dept/name";
+    $.get(info_url,function(result){
+        console.log(result);
+        for(var i in result){
+            if(result[i] == null ){
+                continue;
+            }else{
+                $("#dept_name").append("<option value='"+result[i].dname+"'></option>");
+            }
+        }
+    });
+
+    //给所属学院的datalist 数据库绑定
+    var info_url = "http://localhost:8083//admin/dept/college";
+    $.get(info_url,function(result){
+        console.log(result);
+        for(var i in result){
+            if(result[i] == null ){
+                continue;
+            }else{
+                $("#college").append("<option value='"+result[i].dcollege+"'></option>");
+            }
+        }
+    });
+</script>
+</html>

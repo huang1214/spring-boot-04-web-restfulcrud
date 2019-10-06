@@ -82,10 +82,44 @@
         <result property="tpwd" column="tpwd"/>
         <result property="tstate" column="tstate"/>
         <result property="card_num" column="card_num"/>
+        <result property="dcollege" column="college"/>
     </resultMap>
 
     <select id="teacher_All" resultMap="teacher_class">
         select * from teacher,dept where dept.dno=teacher.dno
     </select>
 
+    <delete id="teacher_Delete">
+        delete teacher where tno = #{tno}
+    </delete>
+
+    <update id="teacher_edit">
+        update teacher set tname = #{tname},tsex = #{tsex},tbirthday =to_date(substr(#{tbirthday},1,10),'yyyy/mm/dd') ,dno = #{dno}, ttel = #{ttel},ttitle = #{ttitle},tstate = #{tstate}, card_num = #{card_num} where tno = #{tno}
+    </update>
+
+    <!--获取所有教师职称，数据不重复-->
+    <select id="all_Ttitle" resultMap="teacher_class">
+        select distinct ttitle from teacher
+    </select>
+
+    <select id="teacher_search" resultMap="teacher_class">
+        select * from teacher,dept
+        <where>
+            <if test="tname.length()!=0">
+                teacher.tname like '%'||#{tname}||'%'
+            </if>
+            <if test="tsex.length()!=0">
+                teacher.tsex like '%'||#{tsex}||'%'
+            </if>
+            <if test="dname.length()!=0">
+                dept.dname like '%'||#{dname}||'%'
+            </if>
+            <if test="dcollege.length()!=0">
+                dept.dcollege like '%'||#{dcollege}||'%'
+            </if>
+            <if test="ttitle.length()!=0">
+                teacher.ttitle like '%'||#{ttitle}||'%'
+            </if>
+        </where>
+    </select>
 </mapper>

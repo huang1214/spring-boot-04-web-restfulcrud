@@ -1,12 +1,11 @@
 package com.aca.springboot.controller;
 
 import com.aca.springboot.service.UserService;
+import com.aca.springboot.service.testService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,9 @@ import java.util.List;
 public class userController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    private testService testService;
 
     /**
      * 修改密码
@@ -146,5 +148,60 @@ public class userController {
         int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
         int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
         return userService.teacher_All(page,limit);
+    }
+
+    //教师删除
+    @ResponseBody
+    @GetMapping(value = "/admin/teacher/delete")
+    public int teacher_Delete(HttpServletRequest request){
+        String tno = request.getParameter("tno");
+        return userService.teacher_Delete(tno);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/admin/teacher/edit")
+    public String teacher_Edit(@RequestParam("tno") String tno,@RequestParam("tname") String tname,
+                            @RequestParam("tsex") String tsex,@RequestParam("tbirthday") String tbirthday,
+                            @RequestParam("dname") String dname, @RequestParam("dcollege") String dcollege,
+                            @RequestParam("ttel") String ttel, @RequestParam("ttitle") String ttitle,
+                            @RequestParam("tstate") String tstate, @RequestParam("card_num") String card_num){
+        System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        String dno = testService.get_dno(dname,dcollege);
+        int result= userService.teacher_edit(tno, tname, tsex,tbirthday, dno, ttel, ttitle, tstate, card_num);
+        if( result == 1 ){
+            return "修改成功！";
+        }else{
+            return "修改失败！";
+        }
+
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/admin/dept/name")
+    public List dept_Name(){
+        return testService.dept_Name();
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/admin/dept/college")
+    public List dept_College(){
+        return testService.dept_College();
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/admin/teacher/ttitle")
+    public List all_Ttitle(){
+        return userService.all_Ttitle();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/teacher/search")
+    public JSONObject teacher_Search(HttpServletRequest request,
+                               @RequestParam("tname") String tname, @RequestParam("tsex") String tsex,
+                               @RequestParam("dname") String dname, @RequestParam("dcollege") String dcollege,
+                               @RequestParam("ttitle") String ttitle){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+        return userService.teacher_search(page,limit,tname,tsex,dname,dcollege,ttitle);
     }
 }

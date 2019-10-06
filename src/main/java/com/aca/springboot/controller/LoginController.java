@@ -117,8 +117,7 @@ public class LoginController {
     //表格查询部门页面，测试
     @ResponseBody
     @GetMapping(value = "/test")
-    public JSONObject aaa(HttpServletRequest request
-    ){
+    public JSONObject aaa(HttpServletRequest request){
         int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
         int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
 
@@ -139,8 +138,6 @@ public class LoginController {
     public boolean bbb(HttpServletRequest request,@RequestBody test t){
         //int id = Integer.parseInt(request.getParameter("param"));
 
-        System.out.println(t.getDno());
-        System.out.println(t.getDadmin());
         return true;
     }
 

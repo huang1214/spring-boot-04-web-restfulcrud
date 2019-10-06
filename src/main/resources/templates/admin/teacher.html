@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>老师管理</title>
+    <link rel="stylesheet" href="asserts/js/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="./asserts/js/jquery-3.2.1.slim.min.js"></script>
+
+    <style>
+        #teacher_edit{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<form class="layui-form" action="">
+    <label class="layui-form-label">教师名称：</label>
+    <div class="layui-inline">
+        <input class="layui-input" name="tname" id="tname" autocomplete="off" placeholder="请输入部门姓名">
+    </div>
+
+    教师性别：
+    <div class="layui-inline">
+        <div class="layui-input-block">
+            <input class="layui-input" name="tsex" id="tsex" autocomplete="off" placeholder="请输入性别">
+        </div>
+    </div>
+
+    <label class="layui-form-label">所属部门：</label>
+    <div class="layui-inline">
+        <input class="layui-input" name="dname" id="dname" autocomplete="off" placeholder="请输入部门姓名" list="dept_name">
+        <datalist id="dept_name"></datalist>
+    </div>
+
+    <label class="layui-form-label">所属学院：</label>
+    <div class="layui-inline">
+        <input class="layui-input" name="dcollege" id="dcollege" autocomplete="off" placeholder="请输入部门姓名" list="college">
+        <datalist id="college"></datalist>
+    </div>
+
+    <label class="layui-form-label">教师职称：</label>
+    <div class="layui-inline">
+        <input class="layui-input" name="ttitle" id="ttitle" autocomplete="off" placeholder="请选择教师职称" list="all_Ttitle">
+        <datalist id="all_Ttitle"></datalist>
+    </div>
+
+    <button type="button" class="layui-btn" data-type="reload" id="search">搜索</button>
+    <button type="reset" class="layui-btn">重置</button>
+</form>
+<table class="layui-hide" id="tea" lay-filter="test"></table>
+
+<!--表中操作的两个按钮-->
+<script type="text/html" id="barDemo">
+    <button class="layui-btn layui-btn-xs"  lay-event="edit" name="edit_dept" id="edit_dept">编辑</button>
+    <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="dele" name="dele_dept">删除</button>
+</script>
+
+<script src="asserts/js/jquery-1.12.4.js"></script>
+<script src="asserts/js/layui/layui.all.js"></script>
+
+<script>
+    layui.define(['table','layer','form'], function(){
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer; //独立版的layer无需执行这一句
+        var form = layui.form;
+
+        table.render({
+            elem: '#tea'
+            ,height: 312
+            ,url: 'http://localhost:8083/getAllTeacher/' //数据接口
+            ,method:"get"
+            ,page: true //开启分页
+            ,cols: [
+                [ //表头
+                    {field: 'tno', title: '教师编号', width:100, sort: true, fixed: 'left'}
+                    ,{field: 'tname', title: '教师名称', width:90}
+                    ,{field: 'tsex', title: '教师性别', width:90}
+                    ,{field: 'tbirthday', title: '教师生日', width:130}
+                    ,{field: 'dname', title: '所属部门', width:90}
+                    ,{field: 'dcollege', title: '所属学院', width:90}
+                    ,{field: 'ttel', title: '教师电话', width:130}
+                    ,{field: 'ttitle', title: '教师职称', width:90}
+                    ,{field: 'tstate', title: '教师状态', width:90,templet: function(d){
+                        if (d.tstate==0) {  // 自定义内容
+                            return "在校";
+                        } else if (d.tstate==1) {
+                            return "离校";
+                        }
+                    }}
+                    ,{field: 'card_num', title: '教师卡号', width:100}
+                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:130}
+                ]
+            ]
+        })
+
+        //第一个表格实例的监听工具条
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            // var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+            if(layEvent === 'dele'){ //删除
+                layer.confirm('真的删除行么', function(index) {
+                    obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                    layer.close(index);
+                    $.ajax(
+                        {
+                            url: 'http://localhost:8083/admin/teacher/delete/?tno=' + data.tno,     // 请求地址,访问controller中的ccc方法, 就是你的控制器, 如 test.com/home/index/index
+                            type: 'GET',   // 请求方式
+                            success: function (result) {
+                                console.log('success...'); // 请求成功后的回调函数, result 为响应内容
+                            },
+                            error: function () {
+                                console.log('Send Request Fail..'); // 请求失败时的回调函数
+                            }
+                        }
+                    );
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //do something
+                console.log(data.tname);
+                //打开弹出层
+                layer.open({
+                    type: 2  //2为iframe页
+                    ,title: '选择部门'  //弹出层标题
+                    ,area: ['580px', '300px']   //设置弹出层大小[宽，高]
+                    ,offset: ['100px', '50px']   //设置弹出层位置 //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,id: 'teacher' //防止重复弹出，点击这个input只能有一个弹出层
+                    ,content:'http://localhost:8083/teacher_form.html?tname='+data.tname+'&tsex='+data.tsex
+                                +'&tbirthday='+data.tbirthday+'&dname='+data.dname+'&dcollege='+data.dcollege+'&ttel='+data.ttel
+                                +'&ttitle='+data.ttitle+'&tstate='+data.tstate+'&card_num='+data.card_num
+                                +'&tno='+data.tno//弹出层内容为demo22块，不能直接是表格id
+                    ,shade: 0 //不显示遮罩
+                    ,yes: function () {  //确定按钮回调方法， 需要手动关闭弹出层
+                        layer.closeAll();
+                    }
+                    ,end:function(){
+                        location.reload();
+                    }
+                });
+
+            } else if(layEvent === 'LAYTABLE_TIPS'){
+                layer.alert('Hi，头部工具栏扩展的右侧图标。');
+            }
+        })
+
+        //条件模糊查询
+        var $ = layui.$, act = {
+            reload: function () {
+                var tname = $('#tname').val();
+                var tsex = $ ('#tsex').val();
+                var dname = $('#dname').val();
+                var dcollege = $('#dcollege').val();
+                var ttitle = $('#ttitle').val();
+                //执行重载
+                console.log(tsex);
+                table.reload('tea', {   //demo2为表格的id名
+                    method:'POST'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        tname: tname,
+                        tsex: tsex,
+                        dname: dname,//逗号隔开
+                        dcollege: dcollege,
+                        ttitle: ttitle
+                    }
+                    ,url: '/admin/teacher/search'    //访问controller中的方法
+                }, 'data');
+            }
+        };
+
+        $('#search').on('click', function () {      //点击查询调用表格重载，这两行我也没太看懂，就会改个名
+            var type = $(this).data('type');      //百度说固定用法，无需深究
+            act[type] ? act[type].call(this) : '';   //不太懂，反正就开始重载 了
+        });
+    })
+
+    //给所属部门的datalist 数据库绑定
+    var info_url = "http://localhost:8083//admin/dept/name";
+    $.get(info_url,function(result){
+        console.log(result);
+        for(var i in result){
+            if(result[i] == null ){
+                continue;
+            }else{
+                $("#dept_name").append("<option value='"+result[i].dname+"'></option>");
+            }
+        }
+    });
+
+    //给所属学院的datalist 数据库绑定
+    var info_url = "http://localhost:8083//admin/dept/college";
+    $.get(info_url,function(result){
+        console.log(result);
+        for(var i in result){
+            if(result[i] == null ){
+                continue;
+            }else{
+                $("#college").append("<option value='"+result[i].dcollege+"'></option>");
+            }
+        }
+    });
+
+    //给教师职称的datalist 数据库绑定
+    var info_url = "http://localhost:8083//admin/teacher/ttitle";
+    $.get(info_url,function(result){
+        console.log(result);
+        for(var i in result){
+            if(result[i] == null ){
+                continue;
+            }else{
+                $("#all_Ttitle").append("<option value='"+result[i].ttitle+"'></option>");
+            }
+        }
+    });
+</script>
+</body>
+</html>
