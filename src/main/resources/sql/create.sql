@@ -1,9 +1,11 @@
-﻿-- 创建部门表（软件工程、信息安全等）
+﻿-- drop table dept;
+-- 创建部门表（软件工程、信息安全等）
 create table dept(
     dno varchar2(2) primary key ,
     dname varchar2(30) not null ,
     dadmin varchar2(10) not null ,
-    dtel varchar2(15) not null
+    dtel varchar2(15) not null,
+    dcollege varchar2(30)
 );
 --select * from dept
 comment on table dept is '部门表';
@@ -13,7 +15,7 @@ comment on column dept.dadmin is '部门主管';
 comment on column dept.dcollege is '部门隶属学院';
 comment on column dept.dtel is '部门主管电话';
 
-alter table dept add dcollege varchar2(30);
+-- alter table dept add dcollege varchar2(30);
 
 -- 创建班级表
 create table class(
@@ -210,11 +212,11 @@ COMMENT ON COLUMN administrator.adm_id IS '管理员账号，作为主键';
 COMMENT ON COLUMN administrator.adm_pwd IS '管理员密码';
 COMMENT ON COLUMN administrator.adm_name IS '管理员名字';
 ----------------
---  通用区������
+--  通用区��
 ----------------
 
 ----------------
---  核心业务区������
+--  核心业务区��
 ----------------
 
 -- 成果申报表
