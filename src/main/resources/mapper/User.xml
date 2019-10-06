@@ -82,7 +82,7 @@
         <result property="tpwd" column="tpwd"/>
         <result property="tstate" column="tstate"/>
         <result property="card_num" column="card_num"/>
-        <result property="dcollege" column="college"/>
+        <result property="dcollege" column="dcollege"/>
     </resultMap>
 
     <select id="teacher_All" resultMap="teacher_class">
