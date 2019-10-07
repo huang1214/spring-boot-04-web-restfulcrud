@@ -2,18 +2,18 @@ package com.aca.springboot.controller;
 
 import com.aca.springboot.entities.application;
 import com.aca.springboot.service.ApplicationService;
-import com.aca.springboot.service.SuccessService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 @Controller
 public class ApplicationController {
@@ -28,7 +28,7 @@ public class ApplicationController {
      * @throws Exception
      */
     @ResponseBody
-    @GetMapping(value="/add")
+    @PostMapping(value="/add")
     public ModelAndView add(@RequestParam("comName") String comName,
                       @RequestParam("workName") String workName,
                       @RequestParam("awardDate") String awardDate,
@@ -43,25 +43,89 @@ public class ApplicationController {
                       @RequestParam("teamNum") String teamNum,
                       @RequestParam("team") String team,
                       @RequestParam("workBriefIntro") String workBriefIntro,
+                            @RequestParam("file") MultipartFile file,
                       Map<String,Object> map, HttpSession session) throws Exception {
         ModelAndView mv = new ModelAndView("redirect:/user/application_form");
+        application app = new application();
+        System.out.println("aaaaaaa");
         String awardTypeId = getawardtype(comName,level_type, prize_type);  //获取获奖类型编号
-        System.out.println("获奖编号"+awardTypeId);
+       /* System.out.println("获奖编号"+awardTypeId);*/
         //获取学生获奖金额stu_price
         String studentPrice = applicationService.get_price(awardTypeId).get("STUDENT_PRICE").toString();
         //获取老师获奖金额tea_price
         String teacherPrice = applicationService.get_price(awardTypeId).get("TEACHER_PRICE").toString();
-        System.out.println("学生获奖金额"+studentPrice);
-        System.out.println("老师获奖金额"+teacherPrice);
+/*        System.out.println("学生获奖金额"+studentPrice);
+        System.out.println("老师获奖金额"+teacherPrice);*/
+        System.out.println("上传的图片"+file);
 /*
         现在这三个数据还没有添加
         certificateImg blob ,
         getAwardImg blob,
         highLight blob,*/
-        int result_app =  applicationService.add(comName,applicantId,teacher1Id,teacher2Id,unit,leader,teamNum,team,studentPrice,teacherPrice,awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro);
-        System.out.println(result_app);
-        if(result_app == 1){
-            return mv;
+
+        //pic.setImg(bytes);
+        Calendar currTime = Calendar.getInstance();
+        String time = String.valueOf(currTime.get(Calendar.YEAR))+String.valueOf((currTime.get(Calendar.MONTH)+1));
+        String path ="d:"+ File.separator+"img"+File.separator+time;   //图片保存路径
+        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        suffix = suffix.toLowerCase();      //文件格式
+        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")) {
+            String fileName = UUID.randomUUID().toString() + suffix;
+            File targetFile = new File(path, fileName);
+            if (!targetFile.getParentFile().exists()) {             //注意，判断父级路径是否存在
+                targetFile.getParentFile().mkdirs();      //不存在创建文件夹
+            }
+            long size = 0;
+            //保存
+            try {
+                file.transferTo(targetFile);
+                size = file.getSize();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //添加
+            InputStream is = null;//得到文件流
+            try {
+                is = new FileInputStream(targetFile);
+                byte[] bytes = FileCopyUtils.copyToByteArray(is);//得到byte
+                System.out.println("bbbbbbbbbbbb,"+comName);
+                app.setComName(comName);
+                app.setApplicantId(applicantId);
+                app.setTeacher1Id(teacher1Id);
+                app.setTeacher2Id(teacher2Id);
+                app.setUnit(unit);
+                app.setLeader(leader);
+                app.setTeamNum(teamNum);
+                app.setTeam(team);
+                app.setStudentPrice(studentPrice);
+                app.setTeacherPrice(teacherPrice);
+                app.setAwardTypeId(awardTypeId);
+                app.setAwardDate(awardDate);
+                app.setApplicantBankCard(applicantBankCard);
+                app.setWorkName(workName);
+                app.setWorkBriefIntro(workBriefIntro);
+                app.setCertificateImg(bytes);
+                /*int result = applicationService.add(comName, applicantId, teacher1Id, teacher2Id, unit, leader, teamNum, team, studentPrice, teacherPrice, awardTypeId, awardDate, applicantBankCard, workName, workBriefIntro, bytes);//添加到数据库中*/
+                int result=applicationService.add(app);
+
+                if (result == 1) {
+                    System.out.println("成功！");
+
+                } else {
+                    System.out.println("失败！");
+
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//        int result_app =  applicationService.add(comName,applicantId,teacher1Id,teacher2Id,unit,leader,teamNum,team,studentPrice,teacherPrice,awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro);
+//        System.out.println(result_app);
+//        if(result_app == 1){
+//            return mv;
+//        }
+//        return mv;
         }
         return mv;
     }
@@ -71,11 +135,12 @@ public class ApplicationController {
      * @return
      */
     @ResponseBody
-    @GetMapping(value = "/success/list")
-    public List list(){
-        return applicationService.work_paaAll();
+    @GetMapping(value = "/application/listAllApplication")
+    public JSONObject application_All(HttpServletRequest request){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+        return applicationService.application_All(page,limit);
     }
-
     /**
      * 获取全部的比赛名称
      * @return

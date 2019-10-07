@@ -151,7 +151,7 @@
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
         <legend>学科竞赛成果申报表</legend>
     </fieldset>
-    <form class="layui-form layui-form-pane" action="/add">
+    <form class="layui-form layui-form-pane" action="/add" method="post" enctype="multipart/form-data">
     <div class="layui-row">
         <div class="layui-form-item layui-col-xs6 layui-col-sm6 layui-col-md12">
             <label class="layui-form-label" >比赛名称<span style="color: red">*</span></label>
@@ -286,7 +286,7 @@
         </div>
 
         <div class="layui-form-item">
-            <button class="layui-btn" lay-submit="" lay-filter="">提交申请</button>
+            <button class="layui-btn" lay-submit="" lay-filter="" id="application_form_btn">提交申请</button>
         </div>
     </div>
     </form>
@@ -595,9 +595,10 @@
 </script>
 <script>
 
-    layui.use(['form','laydate'],function(){
+    layui.use(['form','laydate','upload'],function(){
         var laydate = layui.laydate;
         var form = layui.form;
+        var upload =layui.upload;
         //执行一个laydate实例
         /*日期与时间选择*/
         laydate.render({
@@ -657,6 +658,32 @@
                 if(value==null|| value == ""){
                     return '作品简介不能为空';
                 }
+            }
+        });
+        upload.render({
+            elem: '#test2' //绑定元素
+            ,url: '/add/'//上传接口
+            ,auto: false
+            ,multiple: true
+            ,bindAction: '#application_form_btn'
+            ,choose:function (obj) {
+                //将每次选择的文件追加到文件队列
+                files = obj.pushFile();
+                //layer.load(); //上传loading
+                obj.preview(function (index, file, result) {
+                    $(".layui-upload-list").append('<img src="' + result + '" id="remove_' + index + '" title="双击删除该图片" style="width:280px;height:auto;margin-right: 20px;">')
+                    $('#remove_' + index).bind('dblclick', function () {//双击删除指定预上传图片
+                        delete files[index];//删除指定图片
+                        $(this).remove();
+                    })
+                })
+
+            }
+            ,done: function(res){
+                //上传完毕回调
+            }
+            ,error: function(){
+                //请求异常回调
             }
         });
         form.render();//菜单渲染 把内容加载进去

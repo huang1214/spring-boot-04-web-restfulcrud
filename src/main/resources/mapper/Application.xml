@@ -6,8 +6,8 @@
         awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro)-->
 <mapper namespace="com.aca.springboot.mapper.ApplicationMapper">
     <insert id="add" parameterType="com.aca.springboot.entities.application" >
-            insert into Application(appId,comName,applicantId,teacher1Id,teacher2Id,unit,leader,teamNum,team,studentPrice,teacherPrice,awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro)
-            values (application_id_Seq.Nextval,#{comName},#{applicantId},#{teacher1Id},#{teacher2Id},#{unit},#{leader},#{teamNum},#{team},#{studentPrice},#{teacherPrice},#{awardTypeId},to_date(substr(#{awardDate},1,7),'yyyy-mm'),#{applicantBankCard},#{workName},#{workBriefIntro})
+            insert into Application(appId,comName,applicantId,teacher1Id,teacher2Id,unit,leader,teamNum,team,studentPrice,teacherPrice,awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro,certificateImg)
+            values (application_id_Seq.Nextval,#{comName},#{applicantId},#{teacher1Id},#{teacher2Id},#{unit},#{leader},#{teamNum},#{team},#{studentPrice},#{teacherPrice},#{awardTypeId},to_date(substr(#{awardDate},1,7),'yyyy-mm'),#{applicantBankCard},#{workName},#{workBriefIntro},#{certificateImg,jdbcType=BLOB})
         </insert>
 
     <!-- 查询全部比赛名称 -->
@@ -17,6 +17,19 @@
     <select id="com_name" resultMap="com_name_all">
         select ctname from com_table
     </select>
+
+
+    <resultMap type="application" id="application_award_type">
+        <id column="tid" property="id"/>
+        <result column="tname" property="name"/>
+        <collection property="list" ofType="Student">
+            <id column="sid" property="id"/>
+            <result column="sname" property="name"/>
+            <result column="age" property="age"/>
+            <result column="tid" property="tid"/>
+            <association property="teacher" select="com.bjsxt.mapper.TeacherMapper.selById" column="tid"></association>
+        </collection>
+    </resultMap>
 
     <!-- 调用返还获奖类型的函数 -->
     <parameterMap id="awardtype" type="java.util.Map">
