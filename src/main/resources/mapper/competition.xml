@@ -19,17 +19,17 @@
     <select id="com_search" resultMap="com_class">
         select * from com_table
         <where>
-            <if test="ctname.length()== 0">
+            <if test="ctname.length()!= 0">
                 ctname like '%'||#{ctname}||'%'
             </if>
-            <if test="host_unit.length()== 0">
-                host_unit like '%'||#{host_unit}||'%'
+            <if test="host_unit.length()!= 0">
+               and host_unit like '%'||#{host_unit}||'%'
             </if>
-            <if test="com_type.length()== 0">
-                com_type like '%'||#{com_type}||'%'
+            <if test="com_type.length()!= 0">
+               and com_type like '%'||#{com_type}||'%'
             </if>
-            <if test="result_type.length()== 0">
-                result_type like '%'||#{result_type}||'%'
+            <if test="result_type.length()!= 0">
+               and result_type like '%'||#{result_type}||'%'
             </if>
         </where>
     </select>

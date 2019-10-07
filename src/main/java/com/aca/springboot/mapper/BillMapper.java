@@ -28,4 +28,6 @@ public interface BillMapper {
     public int addBill(Map map);
 
     public void deleteBill();
+
+
 }

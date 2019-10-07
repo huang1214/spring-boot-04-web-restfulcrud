@@ -5,6 +5,20 @@
     <title>竞赛查询</title>
     <link rel="stylesheet" href="../../asserts/js/layui/css/layui.css" media="all">
     <script type="text/javascript" src="../../asserts/js/jquery-3.2.1.slim.min.js"></script>
+    <style>
+        .form-data{
+            width: 90%;
+            margin: 10px auto;
+        }
+        form{
+            width: 700px;
+            margin: 10px auto;
+            text-align: center;
+        }
+        .layui-input:focus, .layui-textarea:focus{
+            border-color:#5FB878!important
+        }
+    </style>
 </head>
 <body>
 <div class="form-data">
@@ -13,13 +27,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">竞赛名称：</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" name="ctname" id="ctname" autocomplete="off" placeholder="请输入教师姓名">
+                    <input class="layui-input" name="ctname" id="ctname" autocomplete="off" placeholder="请输入竞赛名称">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">第一主办单位：</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" name="host_unit" id="host_unit" autocomplete="off" placeholder="请输入教师姓名">
+                    <input class="layui-input" name="host_unit" id="host_unit" autocomplete="off" placeholder="请输入主办单位名称">
                 </div>
             </div>
         </div>
@@ -29,6 +43,7 @@
                 <div class="layui-input-inline">
                     <!--                    <input class="layui-input" name="dname" id="dname" autocomplete="off" placeholder="请输入部门姓名" list="dept_name">-->
                     <select id="com_type" lay-search>
+                        <option value="">请选择</option>
                         <option value="1">重要竞赛项目</option>
                         <option value="0">一般竞赛项目</option>
                     </select>
@@ -38,18 +53,15 @@
                 <label class="layui-form-label">成果类型：</label>
                 <div class="layui-input-inline">
                     <!--                    <input class="layui-input" name="dcollege" id="dcollege" autocomplete="off" placeholder="请输入部门姓名" list="college">-->
-                    <select id="college" lay-search></select>
+                    <select id="result_type" lay-search>
+                        <option value="">请选择</option>
+                        <option value="0">作品</option>
+                        <option value="1">考试</option>
+                    </select>
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">教师职称：</label>
-                <div class="layui-input-inline">
-                    <!--                    <input class="layui-input" name="ttitle" id="ttitle" autocomplete="off" placeholder="请选择教师职称" list="all_Ttitle">-->
-                    <select id="all_Ttitle" lay-search></select>
-                </div>
-            </div>
             <div class="layui-inline">
                 <button type="button" class="layui-btn" data-type="reload" id="search">搜索</button>
                 <button type="reset" class="layui-btn  layui-btn-primary">重置</button>
@@ -102,28 +114,26 @@
 
 
         // 条件模糊查询
-         act = {
+        var $ = layui.$, act = {
             reload: function () {
-                var tname = $('#tname').val();
-                var tsex = $ ('#tsex').val();
-                var dname = $('#dname').val();
-                var dcollege = $('#dcollege').val();
-                var ttitle = $('#ttitle').val();
+                var ctname = $('#ctname').val();
+                var com_type = $ ('#com_type').val();
+                var host_unit = $('#host_unit').val();
+                var result_type = $('#result_type').val();
                 //执行重载
-                console.log(tsex);
-                table.reload('tea', {   //demo2为表格的id名
+
+                table.reload('com', {   //demo2为表格的id名
                     method:'POST'
                     ,page: {
                         curr: 1 //重新从第 1 页开始
                     }
                     , where: {
-                        tname: tname,
-                        tsex: tsex,
-                        dname: dname,//逗号隔开
-                        dcollege: dcollege,
-                        ttitle: ttitle
+                        ctname: ctname,
+                        host_unit: host_unit,
+                        com_type: com_type,//逗号隔开
+                        result_type: result_type
                     }
-                    ,url: '/admin/teacher/search'    //访问controller中的方法
+                    ,url: '/competition/search'    //访问controller中的方法
                 }, 'data');
             }
         };
@@ -169,19 +179,19 @@
         // });
         //
         // //给教师职称的datalist 数据库绑定
-        // var info_url = "http://localhost:8083//admin/teacher/ttitle";
-        // $.get(info_url,function(result){
-        //     console.log(result);
-        //     $("#all_Ttitle").append("<option value=''>"+"请选择"+"</option>");
-        //     for(var i=1 in result){
-        //         if(result[i] == null ){
-        //             continue;
-        //         }else{
-        //             $("#all_Ttitle").append("<option value='" + result[i].ttitle + "'>" + result[i].ttitle + "</option>");
-        //
-        //         }
-        //     }
-        //     form.render('select');
-        // });
+        var info_url = "http://localhost:8083//admin/teacher/ttitle";
+        $.get(info_url,function(result){
+            console.log(result);
+            $("#all_Ttitle").append("<option value=''>"+"请选择"+"</option>");
+            for(var i=1 in result){
+                if(result[i] == null ){
+                    continue;
+                }else{
+                    $("#all_Ttitle").append("<option value='" + result[i].ttitle + "'>" + result[i].ttitle + "</option>");
+
+                }
+            }
+            form.render('select');
+        });
     });
 </script>
