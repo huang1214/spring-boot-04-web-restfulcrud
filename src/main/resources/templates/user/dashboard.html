@@ -3,8 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <title>普通用户仪表盘</title>
+    <script src="https://cdn.bootcss.com/echarts/4.3.0-rc.2/echarts.js"></script>
+    <script src="https://www.layuicdn.com/layui-v2.5.5/layui.js"></script>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.5/css/layui.css">
+    <style>
+        .progress{
+            margin: 5px;
+            padding: 5px;
+        }
+        .progress-item{
+            padding: 10px;
+            border: 1px solid #009688;
+        }
+        .messagebox{
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+        }
+        .boxitem{
+            /* width: 30%; */
+            width: 30%;
+            font-size: 20px;
+            background-color: #f2f2f2;
+            padding: 15px;
+            margin: 5px;
+            /* display: inline-block; */
+        }
+        .boxitem>i{
+            font-size: 30px;
+        }
+        .chartarea{
+            /* display:flex; */
+            /* width: 1020px； */
+            /* flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-around; */
+            width: 1100px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .chart{
+            /* width: 100%; */
+            width: 550px;
+            height: 400px;
+            float: left;
+            /* padding: 20px; */
+        }
+        .layui-badge{
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-这是“普通用户仪表盘”页面
+<div class="layui-fluid">
+    <!-- 顶部的一个tip -->
+    <blockquote class="layui-elem-quote">欢迎访问软件学院学科竞赛管理系统</blockquote>
+    <!-- 项目进度 -->
+    <!-- <div class="progress layui-row">
+        <div class="progress-item layui-col-xs6 layui-col-sm6 layui-col-md6">
+        <div class="item-title">申报进度</div>
+        <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+            <div class="layui-progress-bar" lay-percent="20%"></div>
+            </div>
+        </div>
+        <div class="progress-item layui-col-xs6 layui-col-sm6 layui-col-md6">
+        <div class="item-title">审核进度</div>
+        <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+            <div class="layui-progress-bar layui-bg-orange" lay-percent="50%"></div>
+        </div>
+        </div>
+    </div> -->
+    <!-- 中间的一个多块块条子 -->
+    <div class="messagebox">
+        <div class="boxitem">
+            <a href="">
+                <i class="layui-icon layui-icon-notice"></i>
+                <span>我的消息&nbsp;<span class="layui-badge">99+</span></span>
+            </a>
+        </div>
+        <div class="boxitem ">
+            <a href="">
+                <i class="layui-icon layui-icon-chart"></i>
+                <span>申报进度&nbsp; <span class="layui-badge">3</span></span>
+            </a>
+        </div>
+        <div class="boxitem ">
+            <a href="">
+                <i class="layui-icon layui-icon-chart"></i>
+                <span>审核进度&nbsp; <span class="layui-badge">1</span></span>
+            </a>
+        </div>
+    </div>
+    <!-- 数据图，四个差不多 -->
+    <div class="chartarea">
+        <div class="chart">
+            <div id="app_chart1" style="width: 100%;height: 100%;">
+            </div>
+        </div>
+        <div class="chart">
+            <div id="app_chart2" style="width: 100%;height: 100%;">
+            </div>
+        </div>
+        <div class="chart">
+            <div id="bill_chart1" style="width: 100%;height: 100%;">
+            </div>
+        </div>
+        <div class="chart">
+            <div id="bill_chart2" style="width: 100%;height: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- layui样式js -->
+<script>
+    layui.use(['element','form','carousel','carousel'],function(){
+        var element = layui.element;
+        var form = layui.form;
+
+    });
+</script>
+<!-- 图表样式js -->
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('app_chart1'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '各等级竞赛成果统计图'
+        },
+        tooltip: {},
+        legend: {
+            data:['数量']
+        },
+        xAxis: {
+            data: ["国家特等奖","国一","国二","国三","省特等奖","省一","省二","省三","其他等级"]
+        },
+        yAxis: {},
+        series: [{
+            name: '数量',
+            type: 'bar',
+            data: [1,2,0,3,0,2,1,0,10]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+<script>
+    var myChart = echarts.init(document.getElementById('app_chart2'));
+    option = {
+        title: {
+            text: '各月度激励金额'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月','八月','九月','十月','十一月','十二月']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [300, 600, 200, 700, 0, 0, 0,300,200,100,200,300],
+            type: 'line'
+        }]
+    };
+    myChart.setOption(option);
+</script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('bill_chart1'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '各报销状态数量图'
+        },
+        tooltip: {},
+        legend: {
+            data:['数量']
+        },
+        xAxis: {
+            data: ["待审核","审核不通过","审核通过"]
+        },
+        yAxis: {},
+        series: [{
+            name: '数量',
+            type: 'bar',
+            data: [1,2,2]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+<script>
+    var myChart = echarts.init(document.getElementById('app_chart2'));
+    option = {
+        title: {
+            text: '各月度激励金额'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月','八月','九月','十月','十一月','十二月']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [300, 600, 200, 700, 0, 0, 0,300,200,100,200,300],
+            type: 'line'
+        }]
+    };
+    myChart.setOption(option);
+</script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('bill_chart2'));
+
+    option = {
+        title:{
+            text:'近年报销审核状况'
+        },
+        legend: {},
+        tooltip: {},
+        dataset: {
+            source: [
+                ['product', '2016', '2017', '2018','2019'],
+                ['审核通过', 1, 2, 3,1],
+                ['审核不通过', 0, 1, 2,1],
+            ]
+        },
+        xAxis: {type: 'category'},
+        yAxis: {},
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [
+            {type: 'bar'},
+            {type: 'bar'},
+            {type: 'bar'},
+            {type: 'bar'}
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
 </body>
-</html>s
+</html>

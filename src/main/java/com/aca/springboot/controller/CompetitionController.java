@@ -64,4 +64,16 @@ public class CompetitionController {
         int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
         return competitionService.list_ctname_search(page,limit,ctname);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/competition/search")
+    public JSONObject keyword_search(HttpServletRequest request,
+                                     @RequestParam("ctname") String ctname,
+                                     @RequestParam("host_unit") String host_unit,
+                                     @RequestParam("com_type") String com_type,
+                                     @RequestParam("result_type") String result_type){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+        return competitionService.com_search(page,limit,ctname,host_unit,com_type,result_type);
+    }
 }

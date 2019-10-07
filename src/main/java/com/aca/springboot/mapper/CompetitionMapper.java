@@ -17,4 +17,9 @@ public interface CompetitionMapper {
                           @Param("host_unit") String host_unit,
                           @Param("com_type") String com_type,
                           @Param("reference_paper") String reference_paper);
+
+    public List com_search(@Param("ctname") String ctname,
+                           @Param("host_unit") String host_unit,
+                           @Param("com_type") String com_type,
+                           @Param("result_type") String result_type);
 }

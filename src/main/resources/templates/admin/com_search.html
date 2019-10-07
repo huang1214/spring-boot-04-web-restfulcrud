@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>竞赛查询</title>
+    <link rel="stylesheet" href="../../asserts/js/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="../../asserts/js/jquery-3.2.1.slim.min.js"></script>
+</head>
+<body>
+<div class="form-data">
+    <form class="layui-form layui-form-pane" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">竞赛名称：</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" name="ctname" id="ctname" autocomplete="off" placeholder="请输入教师姓名">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">第一主办单位：</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" name="host_unit" id="host_unit" autocomplete="off" placeholder="请输入教师姓名">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">竞赛分类：</label>
+                <div class="layui-input-inline">
+                    <!--                    <input class="layui-input" name="dname" id="dname" autocomplete="off" placeholder="请输入部门姓名" list="dept_name">-->
+                    <select id="com_type" lay-search>
+                        <option value="1">重要竞赛项目</option>
+                        <option value="0">一般竞赛项目</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">成果类型：</label>
+                <div class="layui-input-inline">
+                    <!--                    <input class="layui-input" name="dcollege" id="dcollege" autocomplete="off" placeholder="请输入部门姓名" list="college">-->
+                    <select id="college" lay-search></select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">教师职称：</label>
+                <div class="layui-input-inline">
+                    <!--                    <input class="layui-input" name="ttitle" id="ttitle" autocomplete="off" placeholder="请选择教师职称" list="all_Ttitle">-->
+                    <select id="all_Ttitle" lay-search></select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button type="button" class="layui-btn" data-type="reload" id="search">搜索</button>
+                <button type="reset" class="layui-btn  layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+    <table class="layui-hide" id="com" lay-filter="test"></table>
+</div>
+</body>
+</html>
+<script src="../../asserts/js/jquery-1.12.4.js"></script>
+<script src="../../asserts/js/layui/layui.all.js"></script>
+<script>
+    layui.define(['table','layer','form'], function(){
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer; //独立版的layer无需执行这一句
+        var form = layui.form;
+
+        table.render({
+            elem: '#com'
+            ,height: 312
+            ,url: '/getAllCom/' //数据接口
+            ,method:"get"
+            ,page: true //开启分页
+            ,cols: [
+                [ //表头
+                    {field: 'ctid', title: '竞赛编号', width:100, sort: true, fixed: 'left'}
+                    ,{field: 'ctname', title: '竞赛名称', width:240}
+                    ,{field: 'host_unit', title: '第一主办单位', width:240}
+                    ,{field: 'com_type', title: '竞赛分类', width:90,templet: function(d){
+                            if (d.com_type.charAt(0)=='0') {  // 自定义内容
+                                return "一般竞赛项目";
+                            } else if (d.com_type.charAt(0)=='1') {
+                                return "重要竞赛项目";
+                            }
+                        }
+                    }
+                    ,{field: 'result_type', title: '成果类型', width:90,templet: function(d){
+                        if (d.result_type==0) {  // 自定义内容
+                            return "作品";
+                        } else if (d.result_type==1) {
+                            return "考试";
+                        }
+                    }}
+                    ,{field: 'reference_paper', title: '参考文件', width:90}
+                ]
+            ]
+        })
+
+
+        // 条件模糊查询
+         act = {
+            reload: function () {
+                var tname = $('#tname').val();
+                var tsex = $ ('#tsex').val();
+                var dname = $('#dname').val();
+                var dcollege = $('#dcollege').val();
+                var ttitle = $('#ttitle').val();
+                //执行重载
+                console.log(tsex);
+                table.reload('tea', {   //demo2为表格的id名
+                    method:'POST'
+                    ,page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        tname: tname,
+                        tsex: tsex,
+                        dname: dname,//逗号隔开
+                        dcollege: dcollege,
+                        ttitle: ttitle
+                    }
+                    ,url: '/admin/teacher/search'    //访问controller中的方法
+                }, 'data');
+            }
+        };
+
+        $('#search').on('click', function () {      //点击查询调用表格重载，这两行我也没太看懂，就会改个名
+            var type = $(this).data('type');      //百度说固定用法，无需深究
+            act[type] ? act[type].call(this) : '';   //不太懂，反正就开始重载 了
+        });
+
+
+        // //给所属部门的datalist 数据库绑定
+        // var info_url = "http://localhost:8083//admin/dept/name";
+        // $.get(info_url,function(result){
+        //     console.log(result);
+        //     $("#dept_name").append("<option value=''>"+"请选择"+"</option>");
+        //     for(var i in result){
+        //         if(result[i].dname == null ){
+        //             continue;
+        //         }else{
+        //             $("#dept_name").append("<option value='"+result[i].dname+"'>"+result[i].dname+"</option>");
+        //
+        //         }
+        //     }
+        //     form.render('select');
+        //
+        // });
+        //
+        // //给所属学院的datalist 数据库绑定
+        // var info_url = "http://localhost:8083//admin/dept/college";
+        // $.get(info_url,function(result){
+        //     console.log(result);
+        //     $("#college").append("<option value=''>"+"请选择"+"</option>");
+        //     for(var i in result){
+        //         if(result[i].dcollege == null ){
+        //             continue;
+        //         }else{
+        //             $("#college").append("<option value='"+result[i].dcollege+"'>"+result[i].dcollege+"</option>");
+        //
+        //         }
+        //     }
+        //     form.render('select');
+        //
+        // });
+        //
+        // //给教师职称的datalist 数据库绑定
+        // var info_url = "http://localhost:8083//admin/teacher/ttitle";
+        // $.get(info_url,function(result){
+        //     console.log(result);
+        //     $("#all_Ttitle").append("<option value=''>"+"请选择"+"</option>");
+        //     for(var i=1 in result){
+        //         if(result[i] == null ){
+        //             continue;
+        //         }else{
+        //             $("#all_Ttitle").append("<option value='" + result[i].ttitle + "'>" + result[i].ttitle + "</option>");
+        //
+        //         }
+        //     }
+        //     form.render('select');
+        // });
+    });
+</script>

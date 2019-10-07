@@ -36,7 +36,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="asserts/img/NCU.png" class="layui-nav-img">
-                    赵思蓉
+                    普通用户
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
@@ -62,7 +62,7 @@
                 <li class="layui-nav-item layui-this">
                     <a class="nav-item-side site-active" href="javascript:;" data-url="user/dashboard" data-id="1" data-title="仪表盘" data-type="tabAdd"><i class="fa fa-home fa-fw"></i>仪表盘</a>
                 </li>
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item ">
                     <a class="nav-item-side" href="javascript:;"><i class="fa fa-id-card fa-fw" aria-hidden="true"></i>预算备案</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="user/bill_notice" data-id="2" data-title="备案须知" class="site-active" data-type="tabAdd">备案须知</a></dd>
@@ -82,7 +82,7 @@
                 </li>
 <!--                暂时表示为教师信息查询页面-->
                 <li class="layui-nav-item"><a class="nav-item-side site-active" data-url="teacher" data-id="10" data-title="教育科研" data-type="tabAdd"><i class="fa fa-flask fa-fw" aria-hidden="true"></i>教育科研</a></li>
-                <li class="layui-nav-item"><a class="nav-item-side site-active" data-url="#" data-id="11" data-title="竞赛查询" data-type="tabAdd"><i class="fa fa-search fa-fw" aria-hidden="true"></i></i>竞赛查询</a></li>
+                <li class="layui-nav-item"><a class="nav-item-side site-active" data-url="admin/com_search" data-id="11" data-title="竞赛查询" data-type="tabAdd"><i class="fa fa-search fa-fw" aria-hidden="true"></i></i>竞赛查询</a></li>
             </ul>
         </div>
     </div>
@@ -95,7 +95,7 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <iframe data-frameid="1" scrolling="auto" frameborder="0" src="user/dashboard" style="width: 100%; height: 99%;"></iframe>
+                    <iframe data-frameid="1" scrolling="auto" frameborder="0" src="user/dashboard" style="width: 100%; height: 100%; min-height: 500px;"></iframe>
                 </div>
             </div>
         </div>
@@ -141,7 +141,7 @@
         };
 
 
-        //当点击有site-demo-active属性的标签时，即左侧菜单栏中内容 ，触发点击事件
+        //当点击有site-active属性的标签时，即左侧菜单栏中内容 ，触发点击事件
         $('.site-active').on('click', function() {
             var dataid = $(this);
 

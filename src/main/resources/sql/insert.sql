@@ -18,17 +18,35 @@ start with 1
 minvalue 1
 maxvalue 999999999;
 
+-- ´´½¨²¿ÃÅ±íµÄĞòÁĞ dept_dno_Seq
+create sequence dept_dno_Seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 999999999;
+
+-- ´´½¨ÀÏÊ¦±íµÄĞòÁĞ teacher_tno_Seq
+create sequence teacher_tno_Seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 999999999;
+
 --DROP SEQUENCE application_id_Seq
 --²¿ÃÅ±í
-insert into dept values('1','Èí¼ş¹¤³Ì','ØıÃû1','18804539085','Èí¼şÑ§Ôº');
-insert into dept values('2','ĞÅÏ¢°²È«','ØıÃû2','13982736473','Èí¼şÑ§Ôº');
-insert into dept values('3','ÑĞ¾¿ÉúÔº°ì','ØıÃû3','17768237238','Èí¼şÑ§Ôº');
-insert into dept values('4','Ñ§¹¤°ì','ØıÃû4','15180457236','Èí¼şÑ§Ôº');
---delete from dept;
+insert into dept values(dept_dno_Seq.Nextval,'Èí¼ş¹¤³Ì','ØıÃû1','18804539085','Èí¼şÑ§Ôº');
+insert into dept values(dept_dno_Seq.Nextval,'ĞÅÏ¢°²È«','ØıÃû2','13982736473','Èí¼şÑ§Ôº');
+insert into dept values(dept_dno_Seq.Nextval,'ÑĞ¾¿ÉúÔº°ì','ØıÃû3','17768237238','Èí¼şÑ§Ôº');
+insert into dept values(dept_dno_Seq.Nextval,'Ñ§¹¤°ì','ØıÃû4','15180457236','Èí¼şÑ§Ôº');
+-- delete from dept where dept.dno='1';
+-- delete from dept where dept.dno='2';
+-- delete from dept where dept.dno='3';
+-- delete from dept where dept.dno='4';
 -- update dept set dcollege ='Èí¼şÑ§Ôº' where dept.dno='1';
 -- update dept set dcollege ='Èí¼şÑ§Ôº' where dept.dno='2';
 -- update dept set dcollege ='Èí¼şÑ§Ôº' where dept.dno='3';
 -- update dept set dcollege ='Èí¼şÑ§Ôº' where dept.dno='4';
+-- select * from dept
 --°à¼¶±í
 --Èí¼ş¹¤³Ì1701
 --ĞÅÏ¢°²È«171
@@ -47,20 +65,51 @@ insert into class values('171','ĞÅÏ¢°²È«1701°à','2','2017¼¶','¸¨µ¼Ô±1','18146618
 insert into class values('172','ĞÅÏ¢°²È«1702°à','2','2017¼¶','¸¨µ¼Ô±2','18146618512','°àµ¼1','°àµ¼1µç»°');
 insert into class values('173','ĞÅÏ¢°²È«1703°à','2','2017¼¶','¸¨µ¼Ô±3','18146618512','°àµ¼1','°àµ¼1µç»°');
 insert into class values('174','ĞÅÏ¢°²È«1704°à','2','2017¼¶','¸¨µ¼Ô±4','18146618512','°àµ¼1','°àµ¼1µç»°');
+-- delete from class where cno='1701';
+-- delete from class where cno='1702';
+-- delete from class where cno='1703';
+-- delete from class where cno='1704';
+-- delete from class where cno='1705';
+-- delete from class where cno='1706';
+-- delete from class where cno='1707';
+-- delete from class where cno='1708';
+-- delete from class where cno='1709';
+-- delete from class where cno='1710';
+-- delete from class where cno='171';
+-- delete from class where cno='172';
+-- delete from class where cno='173';
+-- delete from class where cno='174';
+-- select * from class
+
 
 select * from STUDENT;
 --Ñ§Éú±í
 insert into student values('8002117247','Å£À¤äŞ','Å®',to_date('1999-07-19','YYYY-MM-DD'),'10#503','1706','nky','13546569607','0','6217****404');
 --£¨ÕâÌõ·½±ãÄãÃÇµÇÂ¼£©
 insert into student values('111','Íõ»¨»¨','Å®',to_date('1999-07-19','YYYY-MM-DD'),'10#503','1706','111','13546569607','0','6217****404');
+-- delete from student where sno='8002117247';
+-- delete from student where sno='111';
+
 
 --½ÌÊ¦±í
-insert into teacher values('0001','¼ÖÏş¾ê','Å®',to_date('1987-01','YYYY-MM'),'4','½ÌÊ¦1µç»°','½²Ê¦','0001','0','½ÌÊ¦1¿¨ºÅ');
-insert into teacher values('0002','ÖÓºì','Å®',to_date('1987-02','YYYY-MM'),'4','½ÌÊ¦2µç»°','¸±½ÌÊÚ','0002','0','½ÌÊ¦2¿¨ºÅ');
-insert into teacher values('0003','ÁõÑ©¶÷','Å®',to_date('1987-03','YYYY-MM'),'4','½ÌÊ¦3µç»°','½ÌÊÚ','0003','0','½ÌÊ¦3¿¨ºÅ');
-insert into teacher values('0004','ÁõÏşÃ¢','Å®',to_date('1967-04','YYYY-MM'),'4','½ÌÊ¦4µç»°','½ÌÊÚ','0004','1','½ÌÊ¦4¿¨ºÅ');
-insert into teacher values('0005','ÍõæÂæÂ','Å®',to_date('1987-05','YYYY-MM'),'4','½ÌÊ¦5µç»°','Öú½Ì','0005','0','½ÌÊ¦5¿¨ºÅ');
-insert into teacher values('0006','ËïÈÙ','ÄĞ',to_date('1987-06','YYYY-MM'),'4','½ÌÊ¦6µç»°','¸ß¹¤','0006','0','½ÌÊ¦6¿¨ºÅ');
+insert into teacher values(teacher_tno_Seq.nextval,'¼ÖÏş¾ê','Å®',to_date('1987-01','YYYY-MM'),'4','½ÌÊ¦1µç»°','½²Ê¦','0001','0','½ÌÊ¦1¿¨ºÅ');
+insert into teacher values(teacher_tno_Seq.nextval,'ÖÓºì','Å®',to_date('1987-02','YYYY-MM'),'4','½ÌÊ¦2µç»°','¸±½ÌÊÚ','0002','0','½ÌÊ¦2¿¨ºÅ');
+insert into teacher values(teacher_tno_Seq.nextval,'ÁõÑ©¶÷','Å®',to_date('1987-03','YYYY-MM'),'4','½ÌÊ¦3µç»°','½ÌÊÚ','0003','0','½ÌÊ¦3¿¨ºÅ');
+insert into teacher values(teacher_tno_Seq.nextval,'ÁõÏşÃ¢','Å®',to_date('1967-04','YYYY-MM'),'4','½ÌÊ¦4µç»°','½ÌÊÚ','0004','1','½ÌÊ¦4¿¨ºÅ');
+insert into teacher values(teacher_tno_Seq.nextval,'ÍõæÂæÂ','Å®',to_date('1987-05','YYYY-MM'),'4','½ÌÊ¦5µç»°','Öú½Ì','0005','0','½ÌÊ¦5¿¨ºÅ');
+insert into teacher values(teacher_tno_Seq.nextval,'ËïÈÙ','ÄĞ',to_date('1987-06','YYYY-MM'),'4','½ÌÊ¦6µç»°','¸ß¹¤','0006','0','½ÌÊ¦6¿¨ºÅ');
+
+--delete from teacher where teacher.tno='0001';
+--delete from teacher where teacher.tno='0002';
+-- delete from teacher where teacher.tno='0003';
+-- delete from teacher where teacher.tno='0004';
+-- delete from teacher where teacher.tno='0005';
+-- delete from teacher where teacher.tno='0006';
+-- delete from teacher where teacher.tno='0007';
+-- delete from teacher where teacher.tno='0008';
+-- delete from teacher where teacher.tno='0010';
+-- select * from teacher
+
 
 --¹ÜÀíÔ±±í
 insert into administrator values('admin1001','hwj','»ÆÎÄ¿¡');
@@ -198,3 +247,4 @@ insert into com_table values(com_table_ctid_Seq.Nextval,'È«¹ú´óÑ§ÉúÊĞ³¡µ÷²éÓë·ÖÎ
 insert into com_table values(com_table_ctid_Seq.Nextval,'ÖĞ¹ú´óÑ§Éú¼ÆËã»ú×÷Æ·´óÈü','','0','0','²Î¿¼ÎÄ¼ş1');
 
 
+alter table dept rename column college to dcollege;
