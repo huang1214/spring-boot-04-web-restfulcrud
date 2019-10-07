@@ -65,8 +65,9 @@ public class UserService {
     public int insert_admin(String id,String pwd,String name){ return UserMapper.insert_admin(id,pwd,name); }
 
     //教师
+
     //表格初始化
-    //“申请信息页面 >> 比赛名称弹出层 >> 表格初始化”
+    //“申请信息页面 >> 指导老师弹出层 >> 表格初始化”
     public JSONObject teacher_All(int page, int limit){
         List<test> lists = UserMapper.teacher_All();   //select后结果放入lists集合中
         List<test> list = new ArrayList<>();
@@ -92,7 +93,38 @@ public class UserService {
         String jsonTheLast = JSON.toJSONString(js);       //先将json类对象（此时就是普通的类对象）转变为json格式的字符串
         JSONObject jsonObj = JSON.parseObject(jsonTheLast);   //将字符串串转变为json对象（json数据格式），将对象转变为json数据格式。
 
-        System.out.println(jsonObj);
         return jsonObj;   //返回json对象（json数据）
     }
+    //“申请信息页面 >> 指导老师1弹出层-按条件查询 >> 关键词搜索”
+    public JSONObject list_teacher1Id_search(int page,int limit,String tno,String tname,String dcollege,String dname,String ttitle){
+        List<test> lists = UserMapper.teacher1Id_search(tno,tname,dcollege,dname,ttitle);
+        List<test> list = new ArrayList<>();
+        int theLastPage = page * limit ;
+        if( theLastPage > lists.size())   //如果是最后一页，就是说最后一页的最后一条大于此集合的大小，只显示到集合的最后一条
+        {
+            for( int i = (page-1)*limit; i <lists.size();i++){
+                list.add(lists.get(i));
+            }
+        }else{
+            for( int i = (page-1)*limit; i < theLastPage;i++){    //平时显示页面
+                list.add(lists.get(i));
+            }
+        }
+        String jsonString = JSON.toJSONString(list);
+        JSONArray objects = JSON.parseArray(jsonString);
+        json js = new json();
+        js.setCount(lists.size());
+        js.setCode(0);
+        js.setMsg("");
+        js.setData(objects);
+        String jsonTheLast = JSON.toJSONString(js);
+        JSONObject jsonObj = JSON.parseObject(jsonTheLast);
+        System.out.println(jsonObj);
+
+        return jsonObj;
+    }
+
+   /* public int insert_com(String name,String unit,String type,String paper){
+        return UserMapper.insert_com(name,unit,type,paper);
+    }*/
 }

@@ -210,18 +210,17 @@ COMMENT ON COLUMN administrator.adm_id IS '管理员账号，作为主键';
 COMMENT ON COLUMN administrator.adm_pwd IS '管理员密码';
 COMMENT ON COLUMN administrator.adm_name IS '管理员名字';
 ----------------
---  通用区������
+--  通用区��
 ----------------
 
 ----------------
---  核心业务区������
+--  核心业务区��
 ----------------
 
 -- 成果申报表
 create table application(
     appId varchar2(20) not null,
     comName varchar2(200) not null,
-    comNum number not null,
     applicantId char(10) not null,
     teacher1Id varchar2(10),
     teacher2Id varchar2(10),
@@ -248,7 +247,6 @@ create table application(
 COMMENT ON TABLE application IS '申请表信息表';
 COMMENT ON COLUMN application.appId IS '申请表编号，作为主键';
 COMMENT ON COLUMN application.comName IS '比赛名称';
-COMMENT ON COLUMN application.comNum IS '比赛届数（第几届）';
 COMMENT ON COLUMN application.applicantId IS '申请人的学号,外键';
 COMMENT ON COLUMN application.unit IS '参赛的第一单位';
 COMMENT ON COLUMN application.teacher1Id IS '指导老师1的职工号，外键';

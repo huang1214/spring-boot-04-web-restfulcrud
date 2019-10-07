@@ -9,10 +9,7 @@
     </insert>
 
     <select id="get_ctid" resultType="map">
-      select ctid from com_table where ctname = #{ctname}
-    </select>
-
-    <select id="get_price" resultType="map">
+      select ctid from com_ltType="map">
         select teacher_price,student_price from award_type where atid = #{atid}
     </select>
     

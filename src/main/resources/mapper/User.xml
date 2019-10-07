@@ -87,5 +87,25 @@
     <select id="teacher_All" resultMap="teacher_class">
         select * from teacher,dept where dept.dno=teacher.dno
     </select>
-
+    <!--指导老师1弹出层中对表格进行条件模糊查询-->
+    <select id="teacher1Id_search" resultMap="teacher_class">
+        select * from teacher,dept
+        <where>
+            <if test="tno.length()!=0">
+                teacher.tno like '%'||#{tno}||'%'
+            </if>
+            <if test="tname.length()!=0">
+                and teacher.tname like '%'||#{tname}||'%'
+            </if>
+            <if test="dcollege.length()!=0">
+                and dept.dcollege like '%'||#{dcollege}||'%'
+            </if>
+            <if test="dname.length()!=0">
+               and dept.dname like '%'||#{dname}||'%'
+            </if>
+            <if test="ttitle.length()!=0">
+               and teacher.ttitle like '%'||#{ttitle}||'%'
+            </if>
+        </where>
+    </select>
 </mapper>

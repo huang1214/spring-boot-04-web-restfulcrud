@@ -43,7 +43,6 @@ public class CompetitionService {
         js.setData(objects);
         String jsonTheLast = JSON.toJSONString(js);       //先将json类对象（此时就是普通的类对象）转变为json格式的字符串
         JSONObject jsonObj = JSON.parseObject(jsonTheLast);   //将字符串串转变为json对象（json数据格式），将对象转变为json数据格式。
-        System.out.println(jsonObj);
         return jsonObj;   //返回json对象（json数据）
     }
 
@@ -73,7 +72,8 @@ public class CompetitionService {
         js.setData(objects);
         String jsonTheLast = JSON.toJSONString(js);
         JSONObject jsonObj = JSON.parseObject(jsonTheLast);
-
+        System.out.println("这里执行国");
+        System.out.println(jsonObj);
         return jsonObj;
     }
 

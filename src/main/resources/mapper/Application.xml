@@ -2,27 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        add(comName,applicantId,teacher1Id,teacher2Id,unit,leader,teamNum,team,studentPrice,teacherPrice,
+        awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro)-->
 <mapper namespace="com.aca.springboot.mapper.ApplicationMapper">
     <insert id="add" parameterType="com.aca.springboot.entities.application" >
-            insert into Application(app_id,competition_name,work_name,leader_id,unit,teacher_id,card_num,date_year,award_id)
-            values (application_id_Seq.Nextval,#{competition_name},#{work_name},#{leader_id},#{unit},#{teacher_id},#{card_num},to_date(#{date_year},'yyyy-mm'),#{award_id})
+            insert into Application(appId,comName,applicantId,teacher1Id,teacher2Id,unit,leader,teamNum,team,studentPrice,teacherPrice,awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro)
+            values (application_id_Seq.Nextval,#{comName},#{applicantId},#{teacher1Id},#{teacher2Id},#{unit},#{leader},#{teamNum},#{team},#{studentPrice},#{teacherPrice},#{awardTypeId},to_date(substr(#{awardDate},1,7),'yyyy-mm'),#{applicantBankCard},#{workName},#{workBriefIntro})
         </insert>
 
-<!--    <delete id="delete" parameterType="Application" >
-            delete from Application where app_id= #{app_id}
-        </delete>-->
-
-<!--    <select id="get" parameterType="string" resultType="Application">
-            select * from Application where app_id= #{app_id}
-        </select>-->
-
-<!--    <update id="update" parameterType="Hero" >
-            update hero set name=#{name}, hp = #{hp} where id=#{id}
-        </update>-->
-  <!--  <select id="list" resultType="Application">
-            select * from  Application
-        </select>
--->
     <!-- 查询全部比赛名称 -->
     <resultMap id="com_name_all" type="com.aca.springboot.entities.application">
         <result property="competition_name" column="ctname"/>
@@ -36,10 +23,14 @@
     </parameterMap>
     <select id="getawardtype" parameterMap="awardtype" statementType="CALLABLE">
         {#{awardtype,mode=OUT,jdbcType=CHAR} = call application_award_type(
-                #{u_competition_name,mode=IN,jdbcType=VARCHAR},
-                #{u_result_type,mode=IN,jdbcType=CHAR},
+                #{u_comName,mode=IN,jdbcType=VARCHAR},
                 #{u_level_type,mode=IN,jdbcType=CHAR},
                 #{u_prize_type,mode=IN,jdbcType=CHAR})}
+    </select>
+
+    <!--获取老师学生获奖金额-->
+    <select id="get_price" resultType="map">
+        select teacher_price,student_price from award_type where atid = #{atid}
     </select>
 
     <resultMap id="workresult" type="com.aca.springboot.entities.work">

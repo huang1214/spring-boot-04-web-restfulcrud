@@ -14,7 +14,16 @@ import java.util.Map;
 public interface UserMapper {
 
     public List listUser();
+    //弹出层列出所有指导老师信息
     public List teacher_All();
+    //tno,tname,dcollege,dname,ttitle
+    //条件查询结果  按照指导老师关键词查找比赛名称
+    public List teacher1Id_search(@Param("tno") String tno,
+                                  @Param("tname") String tname,
+                                  @Param("dcollege") String dcollege,
+                                  @Param("dname") String dname,
+                                  @Param("ttitle") String ttitle);
+
     //login(map)修改过
     //普通用户登录
     public void login(Map map);

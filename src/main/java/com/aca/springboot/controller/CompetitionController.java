@@ -57,12 +57,11 @@ public class CompetitionController {
 
     //在“申请信息页面 >> 比赛名称弹出层-按条件查询 >> 关键词搜索”点击搜索后，执行此方法
     @ResponseBody
-    @RequestMapping(value = "/competition/keyword_search")
+    @RequestMapping(value = "/competition/keyword_search_ctname")
     public JSONObject keyword_search(HttpServletRequest request,
-                          @RequestParam("ctname") String ctname){
+                                     @RequestParam("ctname") String ctname){
         int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
         int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
-        System.out.println(ctname);
         return competitionService.list_ctname_search(page,limit,ctname);
     }
 }

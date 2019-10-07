@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -146,5 +147,31 @@ public class userController {
         int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
         int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
         return userService.teacher_All(page,limit);
+    }
+
+/*    //点击搜索后，执行此方法
+    @ResponseBody
+    @RequestMapping(value = "/test/search")
+    public JSONObject bbb(HttpServletRequest request,
+                          @RequestParam("dname") String dname,
+                          @RequestParam("dadmin") String dadmin){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+
+        return testService.list_tset_search(page,limit,dname,dadmin);
+
+    }*/
+    //在“申请信息页面 >> 指导老师1弹出层-按条件查询 >> 关键词搜索”点击搜索后，执行此方法
+    @ResponseBody
+    @RequestMapping(value = "/teacher1/keyword_search")
+    public JSONObject keyword_search(HttpServletRequest request,
+                                     @RequestParam("tno") String tno,
+                                     @RequestParam("tname") String tname,
+                                     @RequestParam("dcollege") String dcollege,
+                                     @RequestParam("dname") String dname,
+                                     @RequestParam("ttitle") String ttitle){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+        return userService.list_teacher1Id_search(page,limit,tno,tname,dcollege,dname,ttitle);
     }
 }
