@@ -2,6 +2,7 @@ package com.aca.springboot.service;
 
 import com.aca.springboot.entities.User;
 import com.aca.springboot.entities.json;
+import com.aca.springboot.entities.teacher;
 import com.aca.springboot.entities.test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -65,9 +66,8 @@ public class UserService {
     public int insert_admin(String id,String pwd,String name){ return UserMapper.insert_admin(id,pwd,name); }
 
     //教师
-
     //表格初始化
-    //“申请信息页面 >> 指导老师弹出层 >> 表格初始化”
+    //“申请信息页面 >> 比赛名称弹出层 >> 表格初始化”
     public JSONObject teacher_All(int page, int limit){
         List<test> lists = UserMapper.teacher_All();   //select后结果放入lists集合中
         List<test> list = new ArrayList<>();
@@ -120,11 +120,6 @@ public class UserService {
         String jsonTheLast = JSON.toJSONString(js);
         JSONObject jsonObj = JSON.parseObject(jsonTheLast);
         System.out.println(jsonObj);
-
-        return jsonObj;
+        return jsonObj;   //返回json对象（json数据）
     }
-
-   /* public int insert_com(String name,String unit,String type,String paper){
-        return UserMapper.insert_com(name,unit,type,paper);
-    }*/
 }

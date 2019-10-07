@@ -8,14 +8,29 @@
         <result property="dname" column="dname"/>
         <result property="dadmin" column="dadmin"/>
         <result property="dtel" column="dtel"/>
+        <result property="dcollege" column="dcollege"/>
     </resultMap>
-    <select id = "test_json" resultMap="test_result">
+    <select id = "dept_All" resultMap="test_result">
         select * from dept
     </select>
 
+    <!--只获取部门名称-->
+    <select id="dept_name" resultMap="test_result">
+        select distinct dname from dept
+    </select>
+
+    <!--只获取所属学院-->
+    <select id="dept_college" resultMap="test_result">
+        select distinct dcollege from dept
+    </select>
+
+    <!--获取部门名称和所属学院对应的部门编号-->
+    <select id="get_dno" resultType="String">
+        select dno from dept where dname = #{dname} and dcollege = #{dcollege}
+    </select>
 
     <!--弹出层中对表格进行条件模糊查询-->
-    <select id="test_search" resultMap="test_result">
+    <select id="dept_search" resultMap="test_result">
         select * from dept
         <where>
             <if test="dname.length()== 0">

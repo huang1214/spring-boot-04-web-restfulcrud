@@ -38,6 +38,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 /* 3.试用页面*/
                 registry.addViewController("/pie_user.html").setViewName("pie_user");  //饼状图
                 registry.addViewController("/user_info.html").setViewName("user_info"); //用户基本信息
+                registry.addViewController("test_json.html").setViewName("/test_json"); //显示部门的表格
 
                 /* 4.普通用户*/
                 registry.addViewController("user/dashboard").setViewName("/user/dashboard"); //仪表盘
@@ -53,8 +54,10 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 registry.addViewController("user/application_history").setViewName("/user/application_history"); //成果管理：历史信息
 
 
-                /* 测试表格页面*/
-                registry.addViewController("test_json.html").setViewName("/test_json"); //显示部门的表格
+                /* 教师的管理*/
+                registry.addViewController("teacher").setViewName("/admin/teacher"); //显示部门的表格
+                registry.addViewController("teacher_form").setViewName("/admin/teacher_form"); //显示部门的表格
+
 
             }
 

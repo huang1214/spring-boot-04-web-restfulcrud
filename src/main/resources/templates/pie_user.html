@@ -7,14 +7,45 @@
     <script type="text/javascript" src="./asserts/js/jquery-3.2.1.slim.min.js"></script>
 </head>
 <body>
-<div id="main" style="width: 600px;height:400px;"></div>
+
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px; width: 450px;">
+    <legend>仪表盘</legend>
+    <div style="padding: 20px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="align:center;">
+                        <div id="main" style="width: 650px;height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px; width: 350px;">
+    <legend>仪表盘2</legend>
+    <div style="padding: 20px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body" style="align:center;">
+                        <div id="main2" style="width: 650px;height:350px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+
 
 <script type="text/javascript">
     var myChart = echarts.init(document.getElementById('main'));
     option = {
         title : {
-            text: '某站点用户访问来源',
-            subtext: '纯属虚构',
+            text: '用户状态',
             x:'center'
         },
         tooltip : {
@@ -24,7 +55,7 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            data: ['未审核','审核未通过','审核通过','申请人确认审核通过','奖金已发放','申请人确认收到奖励']
         },
         series : [
             {
@@ -33,11 +64,12 @@
                 radius : '55%',
                 center: ['50%', '60%'],
                 data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
+                    {value:335, name:'未审核'},
+                    {value:0, name:'审核未通过'},
+                    {value:234, name:'审核通过'},
+                    {value:135, name:'申请人确认审核通过'},
+                    {value:0, name:'奖金已发放'},
+                    {value:500, name:'申请人确认收到奖励'}
                 ],
                 itemStyle: {
                     emphasis: {

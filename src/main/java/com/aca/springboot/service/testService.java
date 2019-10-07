@@ -21,7 +21,7 @@ public class testService {
 
     //表格初始化
     public JSONObject list_tset(int page,int limit){
-        List<test> lists = testMapper.test_json();   //select后结果放入lists集合中
+        List<test> lists = testMapper.dept_All();   //select后结果放入lists集合中
         List<test> list = new ArrayList<>();
         int theLastPage = page * limit ;          //这里用于判断最后一页的最后一条理论上是第几条，然后跟实际的进行比较
         if( theLastPage > lists.size())   //如果是最后一页，就是说最后一页的最后一条大于此集合的大小，只显示到集合的最后一条
@@ -49,7 +49,7 @@ public class testService {
 
     //表格条件查询，内容跟上面一模一样，就是加了两个where条件
     public JSONObject list_tset_search(int page,int limit,String dname,String dadmin){
-        List<test> lists = testMapper.test_search(dname,dadmin);
+        List<test> lists = testMapper.dept_search(dname,dadmin);
         List<test> list = new ArrayList<>();
         int theLastPage = page * limit ;
         if( theLastPage > lists.size())   //如果是最后一页，就是说最后一页的最后一条大于此集合的大小，只显示到集合的最后一条
@@ -76,5 +76,21 @@ public class testService {
     }
 
 
+    //对部门的删除
     public int delete_dept(String dept_id){ return testMapper.delete_dept(dept_id); }
+
+    //只获取部门名字
+    public List dept_Name(){
+        return testMapper.dept_name();
+    }
+
+    //只获取所属学院
+    public List dept_College(){
+        return testMapper.dept_college();
+    }
+
+    //获取部门编号
+    public String get_dno(String dname,String dcollege){
+        return testMapper.get_dno(dname,dcollege);
+    }
 }

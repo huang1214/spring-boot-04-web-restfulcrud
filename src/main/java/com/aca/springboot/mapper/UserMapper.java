@@ -24,6 +24,7 @@ public interface UserMapper {
                                   @Param("dname") String dname,
                                   @Param("ttitle") String ttitle);
 
+
     //login(map)修改过
     //普通用户登录
     public void login(Map map);
@@ -47,5 +48,17 @@ public interface UserMapper {
     public int delete_admin(@Param("adm_id") String adm_id);
 
     public int insert_admin(@Param("adm_id") String adm_id,@Param("adm_pwd") String adm_pwd,@Param("adm_name") String adm_name);
+
+    //教师的删除
+    public int teacher_Delete(@Param("tno") String tno);
+    //对教师的编辑
+    public int teacher_edit(@Param("tno") String tno,@Param("tname") String tname,@Param("tsex") String tsex,
+                            @Param("tbirthday") String tbirthday,@Param("dno") String dno,@Param("ttel") String ttel,
+                            @Param("ttitle") String ttitle,@Param("tstate") String tstate,@Param("card_num") String card_num);
+
+    public List all_Ttitle();
+    //对教师编辑
+    public List teacher_search(@Param("tname") String tname,@Param("tsex") String tsex,@Param("dname") String dname,
+                               @Param("dcollege") String dcollege,@Param("ttitle") String ttitle);
 
 }
