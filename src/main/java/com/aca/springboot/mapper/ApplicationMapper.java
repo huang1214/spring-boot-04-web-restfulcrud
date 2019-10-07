@@ -1,6 +1,6 @@
 package com.aca.springboot.mapper;
 
-import com.aca.springboot.dao.applicationdao;
+
 import com.aca.springboot.entities.application;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

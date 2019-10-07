@@ -1,6 +1,5 @@
 package com.aca.springboot.service;
 
-import com.aca.springboot.dao.applicationdao;
 import com.aca.springboot.entities.application;
 import com.aca.springboot.mapper.ApplicationMapper;
 import org.springframework.beans.factory.annotation.Autowired;

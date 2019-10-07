@@ -130,33 +130,35 @@
     <form action="POST" class="layui-form layui-form-pane">
         <!-- 竞赛信息 -->
         <div class="layui-form-item">
-            <label class="layui-form-label" >比赛名称</label>
-            <div class="layui-input-inline" id="layerDemo_ctname">
-                <input type="text"  class="layui-btn layui-btn-primary" name="comName" id="get_tname" data-method="offset" autocomplete="off" data-type="t" lay-filter="comName" placeholder="请输入比赛名称">
+            <div class="layui-inline">
+                <label class="layui-form-label" >比赛名称<span style="color: red">*</span></label>
+                <div class="layui-input-block" id="layerDemo_ctname">
+                    <input type="text" lay-verify="required" class="layui-btn layui-btn-primary" name="comName" id="get_tname" data-method="offset" autocomplete="off" data-type="t" lay-filter="comName" placeholder="请输入比赛名称">
+                </div>
             </div>
-        </div>
-
         <!-- 参赛年份 -->
-        <div class="layui-form-item">
-            <div class="layui-form-label">参赛日期<span style="color: red">*</span></div>
-            <div class="layui-input-inline">
-                <input type="text" class="layui-input layui-btn layui-btn-primary" required  lay-verify="required" id="cyear" name="cyear">
+            <div class="layui-inline ">
+                <label class="layui-form-label">参赛日期<span style="color: red">*</span></label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input layui-btn layui-btn-primary" lay-verify="required" id="cyear" name="cyear">
+                </div>
             </div>
-
         </div>
 
 
         <!-- 类别型号编号（0省赛，1国赛 -->
         <div class="layui-form-item">
-            <div class="layui-form-label">类别型号<span style="color: red">*</span></div>
-            <div class="layui-input-inline">
-                <select name="leibie" required lay-search lay-verify="required" >
-                    <option value="" selected>请选择</option>
-                    <option value="0">省赛</option>
-                    <option value="1">国赛</option>
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label">类别型号<span style="color: red">*</span></label>
+                <div class="layui-input-block">
+                    <select name="leibie" lay-search lay-verify="required" >
+                        <option value="" selected>请选择</option>
+                        <option value="0">省赛</option>
+                        <option value="1">国赛</option>
+                    </select>
+                </div>
             </div>
-        </div>
+
 
         <!-- 竞赛信息描述 -->
         <!-- <div class="layui-form-item layui-form-text">
@@ -168,10 +170,11 @@
         <!-- 原则上应该通过判断是否是团队赛给出选项，但是考虑到一个代表报销
         一批人的例子，所以这里即使是个人赛也展示，至于数据统计，可以额外建表 -->
         <!-- 团队负责人：外键 -->
-        <div class="layui-form-item">
-            <label class="layui-form-label">负责人</label>
-            <div class="layui-input-inline">
-                <input type="text" name="title"  placeholder="请输入负责人" autocomplete="off" class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">负责人</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title"  placeholder="请输入负责人" autocomplete="off" class="layui-input">
+                </div>
             </div>
         </div>
         <!-- 团队名称，判断 -->
@@ -200,7 +203,7 @@
         <div class="layui-form-item">
             <div class="layui-form-label">成果类型<span style="color: red">*</span></div>
             <div class="layui-input-block">
-                <select name="leibie" required  lay-verify="required" lay-search>
+                <select name="leibie" lay-verify="required" lay-search>
                     <option value="" selected>请选择</option>
                     <option value="0">作品</option>
                     <option value="1">考试</option>
@@ -219,14 +222,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">预算金额<span style="color: red">*</span></label>
             <div class="layui-input-inline">
-                <input type="text" name="price_min" required  lay-verify="required|number" autocomplete="off" class="layui-input">
+                <input type="text" name="price_min" lay-verify="required|number" autocomplete="off" class="layui-input">
             </div>
         </div>
         <!-- 预算描述:必写 -->
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">预算描述<span style="color: red">*</span></label>
             <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入内容" required  lay-verify="required" class="layui-textarea"></textarea>
+                <textarea name="desc" placeholder="请输入内容" lay-verify="required" class="layui-textarea"></textarea>
             </div>
         </div>
         <!-- 申请状态：0.未审核，1审核不通过，2审核通过，样式待定 -->
