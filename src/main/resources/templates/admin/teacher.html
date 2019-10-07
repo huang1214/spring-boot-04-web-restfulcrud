@@ -75,8 +75,6 @@
                 <button type="reset" class="layui-btn  layui-btn-primary">重置</button>
             </div>
         </div>
-
-
     </form>
     <table class="layui-hide" id="tea" lay-filter="test"></table>
 
@@ -157,10 +155,10 @@
                 layer.open({
                     type: 2  //2为iframe页
                     ,title: '选择部门'  //弹出层标题
-                    ,area: ['580px', '300px']   //设置弹出层大小[宽，高]
-                    ,offset: ['100px', '50px']   //设置弹出层位置 //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,area: ['800px', '400px']   //设置弹出层大小[宽，高]
+                    ,offset: 'auto'   //设置弹出层位置 //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                     ,id: 'teacher' //防止重复弹出，点击这个input只能有一个弹出层
-                    ,content:'http://localhost:8083/teacher_form.html?tname='+data.tname+'&tsex='+data.tsex
+                    ,content:'/teacher_form?tname='+data.tname+'&tsex='+data.tsex
                                 +'&tbirthday='+data.tbirthday+'&dname='+data.dname+'&dcollege='+data.dcollege+'&ttel='+data.ttel
                                 +'&ttitle='+data.ttitle+'&tstate='+data.tstate+'&card_num='+data.card_num
                                 +'&tno='+data.tno//弹出层内容为demo22块，不能直接是表格id

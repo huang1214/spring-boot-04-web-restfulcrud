@@ -9,70 +9,92 @@
 <body>
 
 <div id="teacher_edit">
-    <form class="layui-form-item" method="get" action="/admin/teacher/edit">
+    <form class="layui-form" method="get" action="/admin/teacher/edit">
 
-        <label class="layui-form-label">教师名称：</label>
-        <div class="layui-inline">
-            <input class="layui-input" name="tname" id="tname" autocomplete="off">
+        <div class="layui-form-item" style="margin-top: 30px">
+            <div class="layui-inline ">
+                <label class="layui-form-label">教师名称：</label>
+                <div class="layui-input-block" id="layerDemo_teacher1Id">
+                    <input class="layui-input" name="tname" id="tname" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline" >
+                <label class="layui-form-label">教师职称：</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" class="layui-input" name="ttitle" id="ttitle" autocomplete="off">
+                </div>
+            </div>
         </div>
         <br>
 
-        <label class="layui-form-label">教师性别：</label>
-        <div class="layui-inline">
-            <input type="text" class="layui-input" name="tsex" id="tsex" autocomplete="off">
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <label class="layui-form-label">教师性别：</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" name="tsex" id="tsex" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline" >
+                <label class="layui-form-label">教师生日：</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" class="layui-input" name="tbirthday" id="tbirthday" autocomplete="on">
+                </div>
+            </div>
         </div>
         <br>
 
-        <label class="layui-form-label">教师生日：</label>
-        <div class="layui-input-inline">
-            <input type="text" lay-verify="required" class="layui-input" name="tbirthday" id="tbirthday" autocomplete="on">
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <label class="layui-form-label">所属部门：</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" class="layui-input" name="dname" id="dname" list="dept_name" autocomplete="off">
+                    <datalist id="dept_name"></datalist>
+                </div>
+            </div>
+            <div class="layui-inline" >
+                <label class="layui-form-label">所属学院：</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" class="layui-input" name="dcollege" id="dcollege" list="college" autocomplete="off">
+                    <datalist id="college"></datalist>
+                </div>
+            </div>
         </div>
         <br>
 
-        <label class="layui-form-label">所属部门：</label>
-        <div class="layui-input-inline">
-            <input type="text" lay-verify="required" class="layui-input" name="dname" id="dname" list="dept_name" autocomplete="off">
-            <datalist id="dept_name"></datalist>
-        </div>
-        <br>
-        <label class="layui-form-label">所属学院：</label>
-        <div class="layui-input-inline">
-            <input type="text" lay-verify="required" class="layui-input" name="dcollege" id="dcollege" list="college" autocomplete="off">
-            <datalist id="college"></datalist>
-        </div>
-        <br>
-
-        <label class="layui-form-label">教师电话：</label>
-        <div class="layui-input-inline">
-            <input type="text" lay-verify="required" class="layui-input" name="ttel" id="ttel" autocomplete="off">
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <label class="layui-form-label">教师电话：</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" class="layui-input" name="ttel" id="ttel" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline" >
+                <label class="layui-form-label">教师卡号：</label>
+                <div class="layui-input-block">
+                    <input type="text" lay-verify="required" class="layui-input" name="card_num" id="card_num" autocomplete="off">
+                </div>
+            </div>
         </div>
         <br>
 
-        <label class="layui-form-label">教师职称：</label>
-        <div class="layui-input-inline">
-            <input type="text" lay-verify="required" class="layui-input" name="ttitle" id="ttitle" autocomplete="off">
+        <div class="layui-form-item">
+            <div class="layui-inline ">
+                <label class="layui-form-label">教师状态：</label>
+                <div class="layui-input-block" style="width: 188px">
+                    <select  name="tstate" id="tstate" lay-filter="aihao" style="width: 188px">
+                        <option value="0">在校</option>
+                        <option value="1">离校</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline" >
+                <div id="btn" class="layui-input-block">
+                    <button type="submit" class="layui-btn" data-type="reload" name="tno" id="edit">编辑</button>
+                    <button type="reset" class="layui-btn">重置</button>
+                </div>
+            </div>
         </div>
         <br>
-
-        <label class="layui-form-label">教师状态：</label>
-        <div class="layui-input-block">
-            <select style="width: 142px;" name="tstate" id="tstate" lay-filter="aihao">
-                <option value="0">在校</option>
-                <option value="1">离校</option>
-            </select>
-        </div>
-        <br>
-
-        <label class="layui-form-label">教师卡号：</label>
-        <div class="layui-input-inline">
-            <input type="text" lay-verify="required" class="layui-input" name="card_num" id="card_num" autocomplete="off">
-        </div>
-        <br>
-
-        <div id="btn" class="layui-input-block">
-            <button type="submit" class="layui-btn layui-btn-normal" data-type="reload" name="tno" id="edit">编辑</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-        </div>
     </form>
 </div>
 
@@ -80,6 +102,8 @@
 <script src="asserts/js/layui/layui.all.js"></script>
 </body>
 <script>
+    layui.use(['form'],function(){
+        var form = layui.form;
     //获取参数
     var url = document.location.toString();//获取url地址
     var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
@@ -132,6 +156,9 @@
                 $("#college").append("<option value='"+result[i].dcollege+"'></option>");
             }
         }
+    });
+
+    form.render();//菜单渲染 把内容加载进去
     });
 </script>
 </html>

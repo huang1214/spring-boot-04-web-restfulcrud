@@ -606,7 +606,7 @@
             ,trigger: 'click'//呼出事件改成click
         });
         //自定义验证规则
-/*        form.verify({
+        form.verify({
             verify_ctname: function(value){
                 if(value==null|| value == ""){
                     return '比赛名称不能为空';
@@ -658,11 +658,7 @@
                     return '作品简介不能为空';
                 }
             }
-/!*            ,pass: [
-                /^[\S]{6,12}$/
-                ,'密码必须6到12位，且不能出现空格'
-            ]*!/
-        });*/
+        });
         form.render();//菜单渲染 把内容加载进去
     });
 </script>

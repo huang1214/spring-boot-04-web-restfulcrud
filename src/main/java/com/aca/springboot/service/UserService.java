@@ -122,4 +122,49 @@ public class UserService {
         System.out.println(jsonObj);
         return jsonObj;   //返回json对象（json数据）
     }
+    //教师删除
+    public int teacher_Delete(String tno){ return UserMapper.teacher_Delete(tno); }
+
+    //教师编辑
+    public int teacher_edit(String tno, String tname, String tsex, String tbirthday, String dno, String ttel,
+                            String ttitle, String tstate, String card_num){
+        return UserMapper.teacher_edit(tno, tname, tsex,tbirthday, dno, ttel, ttitle, tstate, card_num);}
+
+    //获取所有教师职称，不重复
+    public List all_Ttitle(){
+        return UserMapper.all_Ttitle();
+    }
+
+    //查询教师
+    public JSONObject teacher_search(int page, int limit, String tname, String tsex, String dname,
+                                     String dcollege, String ttitle){
+        List<teacher> lists = UserMapper.teacher_search(tname, tsex, dname, dcollege, ttitle);   //select后结果放入lists集合中
+        List<teacher> list = new ArrayList<>();
+        int theLastPage = page * limit ;          //这里用于判断最后一页的最后一条理论上是第几条，然后跟实际的进行比较
+        if( theLastPage > lists.size())   //如果是最后一页，就是说最后一页的最后一条大于此集合的大小，只显示到集合的最后一条
+        {
+            for( int i = (page-1)*limit; i <lists.size();i++){
+                list.add(lists.get(i));
+            }
+        }else{
+            for( int i = (page-1)*limit; i < theLastPage;i++){    //平时显示页面
+                list.add(lists.get(i));
+            }
+        }
+        String jsonString = JSON.toJSONString(list);     //将集合转变为json格式的字符串
+        JSONArray objects = JSON.parseArray(jsonString);  //将字符串转变为json数组，这里是将集合转变json数组
+
+        json js = new json();     //创建一个json对象
+        js.setCount(lists.size());
+        js.setCode(0);
+        js.setMsg("");
+        js.setData(objects);
+        String jsonTheLast = JSON.toJSONString(js);       //先将json类对象（此时就是普通的类对象）转变为json格式的字符串
+        JSONObject jsonObj = JSON.parseObject(jsonTheLast);   //将字符串串转变为json对象（json数据格式），将对象转变为json数据格式。
+        System.out.println(jsonObj);
+
+        return jsonObj;   //返回json对象（json数据）
+    }
+
+
 }
