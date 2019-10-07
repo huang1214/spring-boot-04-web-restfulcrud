@@ -2,15 +2,15 @@ package com.aca.springboot.controller;
 
 import com.aca.springboot.entities.application;
 import com.aca.springboot.service.ApplicationService;
-import com.aca.springboot.service.SuccessService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
@@ -135,11 +135,12 @@ public class ApplicationController {
      * @return
      */
     @ResponseBody
-    @GetMapping(value = "/success/list")
-    public List list(){
-        return applicationService.work_paaAll();
+    @GetMapping(value = "/application/listAllApplication")
+    public JSONObject application_All(HttpServletRequest request){
+        int page = Integer.parseInt(request.getParameter("page"));   //获取第几页
+        int limit = Integer.parseInt(request.getParameter("limit")); //获取每页的最大条数
+        return applicationService.application_All(page,limit);
     }
-
     /**
      * 获取全部的比赛名称
      * @return

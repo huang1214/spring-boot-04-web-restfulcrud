@@ -18,6 +18,19 @@
         select ctname from com_table
     </select>
 
+
+    <resultMap type="application" id="application_award_type">
+        <id column="tid" property="id"/>
+        <result column="tname" property="name"/>
+        <collection property="list" ofType="Student">
+            <id column="sid" property="id"/>
+            <result column="sname" property="name"/>
+            <result column="age" property="age"/>
+            <result column="tid" property="tid"/>
+            <association property="teacher" select="com.bjsxt.mapper.TeacherMapper.selById" column="tid"></association>
+        </collection>
+    </resultMap>
+
     <!-- 调用返还获奖类型的函数 -->
     <parameterMap id="awardtype" type="java.util.Map">
     </parameterMap>

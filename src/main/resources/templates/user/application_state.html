@@ -3,8 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>申请状态</title>
+    <link rel="stylesheet" href="asserts/js/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="./asserts/js/jquery-3.2.1.slim.min.js"></script>
+
+    <style>
+        #teacher_edit{
+            display: none;
+        }
+        .form-data{
+            width: 90%;
+            margin: 10px auto;
+        }
+        form{
+            width: 700px;
+            margin: 10px auto;
+            text-align: center;
+        }
+        .layui-input:focus, .layui-textarea:focus{
+            border-color:#5FB878!important
+        }
+    </style>
 </head>
 <body>
-这是“申请状态”页面
+<div class="form-data">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+        <legend>申请状态表</legend>
+    </fieldset>
+    <table class="layui-hide" id="application_state" lay-filter="test"></table>
+</div>
+
+<!--表中确认按钮-->
+<script type="text/html" id="barDemo">
+    <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="dele" name="dele_dept">确认</button>
+</script>
+
+<script src="asserts/js/jquery-1.12.4.js"></script>
+<script src="asserts/js/layui/layui.all.js"></script>
+
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+            appId varchar2(20) not null,
+            comName varchar2(200) not null,
+            applicantId char(10) not null,
+            teacher1Id varchar2(10),
+            teacher2Id varchar2(10),
+            unit varchar2(50) not null,
+            leader varchar2(20),
+            teamNum number,
+            team varchar2(200),
+            studentPrice number not null,
+            teacherPrice number ,
+            awardTypeId char(2) not null,
+            awardDate date not null,
+            applicantBankCard varchar2(20) not null,
+            workName varchar2(200),
+            workBriefIntro varchar2(300) not null,
+            certificateImg blob not null,
+            getAwardImg blob,
+            highLight blob,
+            status number default 0,
+        //第一个实例
+        table.render({
+            elem: '#application_state'
+            ,height: 312
+            ,url: '/application/listAllApplication' //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'appId', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'comName', title: '用户名', width:80}
+                ,{field: 'applicantId', title: '性别', width:80, sort: true}
+                ,{field: 'city', title: '城市', width:80}
+                ,{field: 'sign', title: '签名', width: 177}
+                ,{field: 'experience', title: '积分', width: 80, sort: true}
+                ,{field: 'score', title: '评分', width: 80, sort: true}
+                ,{field: 'classify', title: '职业', width: 80}
+                ,{field: 'wealth', title: '财富', width: 135, sort: true}
+            ]]
+        });
+
+    });
+</script>
 </body>
 </html>

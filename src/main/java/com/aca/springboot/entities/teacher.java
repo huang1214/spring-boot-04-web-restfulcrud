@@ -128,6 +128,7 @@ public class teacher {
         this.dname = dname;
     }
 
+
     public String getDcollege() {
         return dcollege;
     }

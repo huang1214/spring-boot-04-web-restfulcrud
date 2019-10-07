@@ -24,5 +24,7 @@ public interface ApplicationMapper {
 
     public void getawardtype(Map map); //查询获奖类型
 
+    //申请状态列出所有的申请信息
+    public List application_All();
     public List workresult(Map map);
 }
