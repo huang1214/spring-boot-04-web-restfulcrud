@@ -20,6 +20,8 @@ public class application {
     private String workName;
     private String workBriefIntro;
 
+    private byte[] certificateImg;
+
     public String getAppId() {
         return appId;
     }
@@ -146,6 +148,14 @@ public class application {
 
     public void setWorkBriefIntro(String workBriefIntro) {
         this.workBriefIntro = workBriefIntro;
+    }
+
+    public byte[] getCertificateImg() {
+        return certificateImg;
+    }
+
+    public void setCertificateImg(byte[] certificateImg) {
+        this.certificateImg = certificateImg;
     }
     /*public application(String app_id, String competition_name, String work_name, String leader_id, String unit, String teacher_id, String card_num, String date_year, String award_id) {
         this.app_id = app_id;

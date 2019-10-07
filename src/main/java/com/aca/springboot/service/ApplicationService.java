@@ -1,6 +1,5 @@
 package com.aca.springboot.service;
 
-import com.aca.springboot.dao.applicationdao;
 import com.aca.springboot.entities.application;
 import com.aca.springboot.mapper.ApplicationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +20,8 @@ public class ApplicationService {
      */
 /*    add(comName,applicantId,teacher1Id,teacher2Id,unit,leader,teamNum,team,studentPrice,teacherPrice,
         awardTypeId,awardDate,applicantBankCard,workName,workBriefIntro)*/
-    public int add(String comName,
-                    String applicantId,
-                    String teacher1Id,
-                    String teacher2Id,
-                    String unit,
-                    String leader,
-                    String teamNum,
-                    String team,
-                    String studentPrice,
-                    String teacherPrice,
-                    String awardTypeId,
-                    String awardDate,
-                    String applicantBankCard,
-                    String workName,
-                    String workBriefIntro) {
-        Map map = new HashMap<String,String>();
+    public int add(application app) {
+        /*Map map = new HashMap<String,String>();
         map.put("comName",comName);
         map.put("applicantId",applicantId);
         map.put("teacher1Id",teacher1Id);
@@ -52,7 +37,11 @@ public class ApplicationService {
         map.put("applicantBankCard",applicantBankCard);
         map.put("workName",workName);
         map.put("workBriefIntro",workBriefIntro);
-        return applicationMapper.add(map);
+
+*//*        String strImg = new String(img);*//*
+      *//*  map.put("certificateImg",strImg);*//*
+        byte[] imgs=img;*/
+        return applicationMapper.add(app);
     }
 
     public List com_name(){

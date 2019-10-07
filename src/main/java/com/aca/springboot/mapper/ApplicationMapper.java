@@ -1,7 +1,6 @@
 package com.aca.springboot.mapper;
-
-import com.aca.springboot.dao.applicationdao;
 import com.aca.springboot.entities.application;
+import javafx.application.Application;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 @Mapper
 public interface ApplicationMapper {
 
-    public int add(Map map);
+    public int add(application app);
 
     //获取学生和老师的奖金
     public Map get_price(@Param("atid") String atid);
